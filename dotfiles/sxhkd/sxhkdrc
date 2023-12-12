@@ -11,8 +11,8 @@ ctrl + Escape
 	kitty sh -c btop
 
 # program launcher
-super + @space
-	rofi
+super + d
+	kitty sh -c 'python ~/.config/hypr/yapl.py'
 
 # firefox
 super + b
@@ -29,6 +29,10 @@ super + Escape
 # screenshot
 Print
 	scrot -F "/home/astesia/Pictures/Screenshots/Screenshot_%Y%m%d_%H%M%S.png"
+
+# exit bspwm
+alt + F4
+	kitty sh -c ~/.config/bspwm/exit-bspwm.sh
 
 #
 # bspwm hotkeys

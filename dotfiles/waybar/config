@@ -1,0 +1,121 @@
+{
+	"layer": "bottom",
+	"position": "bottom",
+	"height": 40,
+	"modules-right": ["cava", "cpu", "memory", "network", "pulseaudio", "backlight", "tray", "custom/kdeconnect", "clock"],
+	"modules-left": ["group/group-power", "hyprland/workspaces"],
+	"margin-bottom": 12,
+	"margin-left": 12,
+	"margin-right": 12,
+
+	"clock": {
+		"format": "  {:%H:%M} ",
+		"format-alt": "  {:%B %d, %Y} "
+	},
+
+	"custom/kdeconnect": {
+		"format": "  ",
+		"on-click": "kdeconnect-app",
+		"tooltip": false
+	},
+
+	"tray": {
+		"spacing": "2"
+	},
+
+	"backlight": {
+		"interval": 5,
+		"device": "intel_backlight",
+		"format": " 󰃠 {percent}%    ",
+		"tooltip": false
+
+	},
+
+	"pulseaudio": {
+		"format": " 󰕾 {volume}% ",
+		"format-muted": "  󰝟 MUTE  ",
+		"scroll-step": 5.0,
+		"tooltip": false
+	},
+
+	"network": {
+		"interface": "wlp3s0",
+		"interval": 60,
+		"format": "󰖩 ON ",
+		"format-disconnected": "󰖩 OFF ",
+		"tooltip": false
+	},
+
+	"memory": {
+		"interval": 3,
+		"format": "  {used} GiB     ",
+		"tooltip": false
+
+	},
+
+	"cpu": {
+		"interval": 1,
+		"format": "  󰍛 {usage}% "
+	},
+
+	"group/group-power": {
+		"orientation": "horizontal",
+		"modules": ["custom/power", "custom/logout", "custom/reboot"],
+		"drawer": {
+			"transition-duration": 500,
+			"transition-left-to-right": true,
+			"children-class": "drawer-child"
+		}
+	},
+
+	"custom/power": {
+		"format": "   ",
+		"tooltip": false,
+		"on-click": "poweroff"
+
+	},
+
+        "custom/reboot": {
+                "format": "  ",
+                "tooltip": false,
+                "on-click": "reboot"
+
+        },
+
+        "custom/logout": {
+                "format": " 󰗽 ",
+                "tooltip": false,
+                "on-click": "hyprctl dispatch exit"
+
+        },
+
+	"hyprland/workspaces": {
+		"persistent-workspaces": {"*": 6},
+		"active-only": false,
+		"all-outputs": true,
+		"format": "{id}"
+	},
+
+	"cava": {
+//        "cava_config": "$XDG_CONFIG_HOME/cava/cava.conf",
+        "framerate": 30,
+        "autosens": 12,
+        "bars": 14,
+        "hide_on_silence": true,
+        "lower_cutoff_freq": 50,
+        "higher_cutoff_freq": 10000,
+        "method": "pulse",
+        "source": "auto",
+        "stereo": true,
+        "reverse": false,
+        "bar_delimiter": 0,
+        "monstercat": false,
+        "waves": false,
+        "noise_reduction": 0.77,
+        "input_delay": 1,
+        "format-icons" : ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█" ],
+	}
+
+}
+
+

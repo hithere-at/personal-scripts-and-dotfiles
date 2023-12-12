@@ -1,0 +1,63 @@
+* {
+	font-family: JetBrainsMono NF Medium;
+	font-size: 16px;
+	font-weight: 500;
+	min-height: 2px;
+}
+
+window#waybar {
+	background: #1f1f2e;
+	border: 2px solid #606499;
+}
+
+#clock {
+	color: #a6adc8;
+	margin-right: 2px;
+}
+
+#custom-kdeconnect {
+	color: #a6adc8
+}
+
+#backlight {
+	color: #fab387;
+}
+
+#pulseaudio {
+	color: #f5c2e7;
+}
+
+#network {
+	color: #eba0ac;
+}
+
+#memory {
+	color: #94e2d5;
+}
+
+#cpu {
+	color: #89dceb;
+}
+
+#cava {
+	color: #94e2d5;
+}
+
+#custom-power, #custom-logout, #custom-reboot {
+	color: #ffffff;
+}
+
+#workspaces button {
+	color: #606499;
+	padding-left: 8pt;
+	padding-right: 8pt;
+}
+
+#workspaces button.empty {
+	color: #535353;
+}
+
+#workspaces button.active {
+	color: #000000;
+	background-color: #606499;
+}
