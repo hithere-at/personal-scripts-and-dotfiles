@@ -1,0 +1,28 @@
+{
+	"Kitty": {
+		"cmd": "/usr/bin/kitty"
+	},
+
+	"Steam": {
+		"cmd": "/usr/bin/steam"
+	},
+
+	"OBS Studio": {
+		"cmd": "/usr/bin/obs"
+	},
+
+	"Firefox": {
+		"cmd": "/usr/bin/firefox"
+	},
+
+	"VirtualBox": {
+		"cmd": "/usr/bin/virtualbox"
+	},
+
+	"Counter-Strike Source": {
+		"cmd": "wine hl2.exe",
+		"cwd": "/home/astesia/Games/CSS",
+		"env_var": ["WINEFSYNC=1"]
+	}
+
+}
