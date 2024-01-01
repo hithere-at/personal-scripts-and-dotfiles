@@ -14,13 +14,17 @@ ctrl + Escape
 super + d
 	kitty sh -c 'python ~/.config/hypr/yapl.py'
 
+# kde connect
+super + backslash
+	kdeconnect-app
+
 # firefox
 super + b
 	firefox
 
-# dolphin
+# file manager
 super + e
-	dolphin
+	thunar
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -30,9 +34,15 @@ super + Escape
 Print
 	scrot -F "/home/astesia/Pictures/Screenshots/Screenshot_%Y%m%d_%H%M%S.png"
 
-# exit bspwm
-alt + F4
-	kitty sh -c ~/.config/bspwm/exit-bspwm.sh
+# volume control
+XF86AudioLowerVolume
+	pamixer -d 5
+
+XF86AudioRaiseVolume
+	pamixer -i 5
+
+XF86AudioMute
+        pamixer -t
 
 #
 # bspwm hotkeys
