@@ -1,0 +1,37 @@
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+setopt autocd
+bindkey -e
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/astesia/.zshrc'
+
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.local/share/zsh/plugins/zsh-shift-select.plugin.zsh
+
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
+bindkey "^[[3~" delete-char
+bindkey "^[[1;5D" backward-word
+bindkey "^[[1;5C" forward-word
+
+alias ls='eza --icons --color=auto'
+alias ll='ls -lh'
+alias cte='chmod 755'
+alias grep='grep --color=auto'
+
+preexec() {
+	printf "\n"
+}
+
+if [ -z "$XDG_CURRENT_DESKTOP" ]; then
+	export QT_QPA_PLATFORMTHEME=qt6ct
+
+fi
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+PROMPT=$'\n%F{#000000}%K{#ffe69a} \uf015 %n@%M %f%k%F{#ffe69a}%K{#ffc925}\ue0b4%f%k%F{#000000}%K{#ffc925} %(4~|.../%3~|%~) %f%k%F{#ffc925}\ue0b4%f\n%F{#000000}%K{255} %%%f%k%F{255}\ue0b4%f '

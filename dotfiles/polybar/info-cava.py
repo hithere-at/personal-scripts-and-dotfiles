@@ -7,12 +7,7 @@ import sys
 import tempfile
 
 if len(sys.argv) > 1 and sys.argv[1] == '--subproc':
-    ramp_list = [' ', '▁', '▂', '▃', '▄', '▅', '▆', '▇', '█']
-    ramp_list.extend(
-        f'%{{F#{color.strip(" #")}}}█%{{F-}}'
-        for color in sys.argv[2].split(',')
-        if color
-    )
+    ramp_list = ['▁', '▂', '▃', '▄', '▅', '▆', '▇', '█']
     while True:
         cava_input = input().strip().split()
         cava_input = [int(i) for i in cava_input]
@@ -44,7 +39,7 @@ if opts.channels != 'stereo':
        f'mono_option={opts.channels}'
     )
 
-conf_ascii_max_range = 12 + len([i for i in opts.extra_colors.split(',') if i])
+conf_ascii_max_range = 8
 
 cava_conf = tempfile.mkstemp('','polybar-cava-conf.')[1]
 with open(cava_conf, 'w') as cava_conf_file:

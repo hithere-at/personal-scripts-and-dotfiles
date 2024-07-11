@@ -1,9 +1,10 @@
-#! /bin/sh
+#!/bin/sh
 
 pgrep -x sxhkd > /dev/null || sxhkd &
-pgrep -x polybar > /dev/null || polybar &
+polybar -c ~/.config/polybar/bottom_nocava.ini &
+polybar -c ~/.config/polybar/top.ini &
 
-bspc monitor -d 1 2 3 4 5
+bspc monitor -d 1 2 3 4 5 6
 
 bspc config border_width         2
 bspc config window_gap          12
@@ -12,8 +13,16 @@ bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
+bspc rule -a mpv state=floating
+
+bspc config normal_border_color "#30283C"
+bspc config focused_border_color "#C1AE74"
+
+export QT_QPA_PLATFORMTHEME=qt6ct
+
 /usr/lib/polkit-kde-authentication-agent-1 &
-feh --bg-scale ~/Pictures/wallpapers/landscape/there_is_pink_and_railroad.png
-redshift -l 1:1 -t 5000:5000 -r -g 0.84 &
-picom --unredir-if-possible --blur-background --backend glx --xrender-sync-fence --blur-method dual_kawase --use-damage --vsync -I 1 -O 1 -D 0 -b
-/usr/lib/kdeconnectd &
+feh --bg-scale ~/Pictures/wallpapers/a_glowy_night.jpg
+redshift -l 1:1 -t 5200:5200 -r -g 0.80 &
+xinput set-prop 13 "libinput Tapping Enabled" 1 &
+compfy &
+/usr/bin/kdeconnectd &

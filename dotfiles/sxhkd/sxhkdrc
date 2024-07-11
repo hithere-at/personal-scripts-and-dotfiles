@@ -4,19 +4,19 @@
 
 # terminal emulator
 super + Return
-	kitty
+	~/.config/sxhkd/alacritty-cwd.sh
 
 # btop
 ctrl + Escape
-	kitty sh -c btop
+	alacritty -e btop
 
 # program launcher
 super + d
-	kitty sh -c 'python ~/.config/hypr/yapl.py'
+	alacritty -e ~/.config/sxhkd/yapl
 
 # kde connect
 super + backslash
-	kdeconnect-app
+	QT_QPA_PLATFORMTHEME=qt6ct kdeconnect-app
 
 # firefox
 super + b
@@ -24,7 +24,7 @@ super + b
 
 # file manager
 super + e
-	thunar
+	QT_QPA_PLATFORMTHEME=qt6ct dolphin
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -42,7 +42,7 @@ XF86AudioRaiseVolume
 	pamixer -i 5
 
 XF86AudioMute
-        pamixer -t
+    pamixer -t
 
 #
 # bspwm hotkeys
@@ -119,7 +119,7 @@ super + {_,shift + }{1-9,0}
 #
 
 # preselect the direction
-super + ctrl + {h,j,k,l}
+super + ctrl + {Left,Down,Up,Right}
 	bspc node -p {west,south,north,east}
 
 # preselect the ratio
@@ -139,13 +139,14 @@ super + ctrl + shift + space
 #
 
 # expand a window by moving one of its side outward
-super + alt + {h,j,k,l}
+super + alt + {Left,Down,Up,Right}
 	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 
 # contract a window by moving one of its side inward
-super + alt + shift + {h,j,k,l}
+super + alt + shift + {Left,Down,Up,Right}
 	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 
 # move a floating window
-super + {Left,Down,Up,Right}
+super + ctrl + alt + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
+

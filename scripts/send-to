@@ -1,0 +1,19 @@
+#!/bin/sh
+dev="$(kdeconnect-cli -a 2> /dev/null | grep -o '\- [^:]*' | sed 's/- //')"
+
+if [ $(echo $dev | wc -l ) = 1 ]; then
+	kdeconnect-cli -n "$(echo $dev)" --share "$1"
+
+else
+	echo "$dev" | while read line; do
+		c=$((c + 1))
+		printf "[$c] $line\n" 
+
+	done
+
+	printf "Choose which device to send the file to: "
+	read huh
+
+	kdeconnect-cli -n $(echo $dev | sed '${huh}q;d') --share "$1"
+
+fi
