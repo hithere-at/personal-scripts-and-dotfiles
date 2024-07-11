@@ -1,4 +1,6 @@
 #!/bin/env python3
+# This is cava module taken from https://github.com/polybar/polybar-scripts/tree/master/polybar-scripts/info-cava
+# but modified to show static color
 import argparse
 import os
 import signal
