@@ -1,3 +1,4 @@
 #!/bin/sh
+# this is just a script to run programs in the background
 
 nohup "$@" > /dev/null 2>&1 &
