@@ -1,4 +1,7 @@
 #!/bin/sh
+# this program send a file to devices connected with KDE Connect
+# if multiple devices are connected, show a promp to choose which device the file should be sent to
+# otherwise, send the file to the only device connected
 dev="$(kdeconnect-cli -a 2> /dev/null | grep -o '\- [^:]*' | sed 's/- //')"
 
 if [ $(echo $dev | wc -l ) = 1 ]; then
