@@ -12,3 +12,7 @@
   - by 画师JW at [pixiv](https://www.pixiv.net/en/users/33558705)
   - [Source](https://www.pixiv.net/en/artworks/119614387)
   - Image originally at potrait, but cropped to landscape
+
+- *zhezhi.png*
+  - by 水沐汐 at [pixiv](https://www.pixiv.net/en/users/80279410)
+  - [Source](https://www.pixiv.net/en/artworks/121567159)
