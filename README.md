@@ -39,6 +39,6 @@ This is my collection of scripts and dotfiles that i used. This thing exist beca
 ## Notes
 - This theme is derived from zhezhi theme.
 - You **have** to configure `yapl` before using it, see [this](https://github.com/hithere-at/yapl?tab=readme-ov-file#configuration) for the configuration layout.
-- Animations for window geometry changes configurations are taken from [gh0stzk/dotfiles](https://github.com/hithere-at/gh0stzk/dotfiles) with modified curve.
+- Animations for window geometry changes configurations are taken from [gh0stzk/dotfiles](https://github.com/gh0stzk/dotfiles) with modified curve.
 - I am not using rofi because im too lazy to configure them.
 - You need to install this dotfiles manually, meaning some wont work out of the box (e.g sxhkd, bspwm). Some of the configuration needs to be edited to suit your PC, like the width of the bar.
