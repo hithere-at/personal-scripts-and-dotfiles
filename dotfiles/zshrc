@@ -1,15 +1,16 @@
 # Lines configured by zsh-newuser-install
-HISTFILE=~/.histfile
+HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
 setopt autocd
+setopt appendhistory
 bindkey -e
 # End of lines configured by zsh-newuser-install
 # The following lines were added by compinstall
-zstyle :compinstall filename '/home/astesia/.zshrc'
+zstyle :compinstall filename '/home/$USER/.zshrc'
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source ~/.local/share/zsh/plugins/zsh-shift-select.plugin.zsh
+source ~/.local/share/zsh/plugins/zsh-shift-select/zsh-shift-select.plugin.zsh
 
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
@@ -34,4 +35,4 @@ fi
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
-PROMPT=$'\n%F{#000000}%K{#91b6ba} \uf015 %n@%M %f%k%F{#91b6ba}%K{#79a2a2}\ue0b4%f%k%F{#000000}%K{#79a2a2} %(4~|.../%3~|%~) %f%k%F{#79a2a2}\ue0b4%f\n%F{#000000}%K{255} %%%f%k%F{255}\ue0b4%f '
+PROMPT=$'\n%F{#33275e}%K{#ccbeff} \uf015 %n@%M %f%k%F{#ccbeff}%K{#eeb8cb}\ue0bc%f%k%F{#492534}%K{#eeb8cb} %(4~|.../%3~|%~) %f%k%F{#eeb8cb}\ue0bc%f\n%F{000}%K{255} %% %f%k%F{255}\ue0b0%f '

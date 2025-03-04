@@ -1,6 +1,7 @@
 #!/bin/sh
 
 pgrep -x sxhkd > /dev/null || sxhkd &
+pgrep -x redshift > /dev/null || redshift -l 1:1 -t 5000:5000 -r -g 0.80 &
 polybar -c ~/.config/polybar/config.ini &
 
 bspc monitor -d 1 2 3 4 5 6
@@ -15,14 +16,14 @@ bspc config gapless_monocle      true
 bspc rule -a mpv state=floating
 bspc rule -a mpv state=floating
 
-bspc config normal_border_color "#30283C"
-bspc config focused_border_color "#79A2A2"
+bspc config focused_border_color "#E7DEFF"
+bspc config normal_border_color "#312F35"
 
 export QT_QPA_PLATFORMTHEME=qt6ct
 
 /usr/lib/polkit-kde-authentication-agent-1 &
-feh --bg-fill ~/Pictures/wallpapers/zhezhi.jpg
-redshift -l 1:1 -t 5200:5200 -r -g 0.80 &
+feh --bg-fill ~/Pictures/wallpapers/deidey_cuteee.jpg
+picom -b
+dunst &
 xinput set-prop 13 "libinput Tapping Enabled" 1 &
-compfy &
 /usr/bin/kdeconnectd &
