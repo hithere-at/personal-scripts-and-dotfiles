@@ -12,7 +12,7 @@ ctrl + Escape
 
 # program launcher
 super + d
-	alacritty -e ~/.config/sxhkd/yapl
+	rofi -show drun
 
 # kde connect
 super + backslash
@@ -34,15 +34,28 @@ super + Escape
 Print
 	scrot -F "/home/astesia/Pictures/Screenshots/Screenshot_%Y%m%d_%H%M%S.png"
 
-# volume control
+# function keys
+
+XF86MonBrightnessDown
+    brightnessctl set 5%-
+
+XF86MonBrightnessUp
+    brightnessctl set 5%+
+
+XF86ScreenSaver
+    xset dpms force off
+
+XF86AudioMute
+    pamixer -t
+
 XF86AudioLowerVolume
 	pamixer -d 5
 
 XF86AudioRaiseVolume
 	pamixer -i 5
 
-XF86AudioMute
-    pamixer -t
+XF86TouchpadToggle
+    xinput set-prop 13 "libinput Tapping Enabled" 1
 
 #
 # bspwm hotkeys

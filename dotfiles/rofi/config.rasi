@@ -1,0 +1,57 @@
+configuration {
+    font: "JetBrainsMono NF Medium 11";
+    show-icons: true;
+    display-drun: "Search: ";
+    drun-display-format: "{icon} {name}";
+    modi: "window,run,drun";
+    icon-theme: "breeze-dark";
+
+}
+
+@theme "/dev/null"
+
+* {
+    background-color: #312F35;
+
+}
+
+window {
+    width: 45%;
+    height: 60%;
+    border: 2px;
+    border-color: #CCBEFF;
+    padding: 0.5em;
+
+}
+
+element { padding: 0.5em; }
+element normal { text-color: #FFFFFF; }
+
+element selected {
+    text-color: #CCBEFF;
+    background-color: #494458;
+
+}
+
+element-text {
+    text-color: inherit;
+    background-color: inherit;
+    vertical-align: 0.5;
+
+}
+
+element-icon {
+    background-color: inherit;
+    size: 32;
+
+}
+
+inputbar { padding: 0.5em; }
+prompt { text-color: #FFFFFF; }
+
+entry {
+    placeholder: "type something...";
+    text-color: #FFFFFF;
+    placeholder-color: #6A6177;
+
+}
