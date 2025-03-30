@@ -1,0 +1,34 @@
+#!/bin/sh
+
+ENV_VAR="GALLIUM_DRIVER=virpipe"
+
+show_help() {
+    cat << EOF
+Usage: virpipe [OPTIONS] COMMAND..
+
+Example: virpipe glxgears
+         virpipe -g 4.0 alacritty
+
+Options:
+    -g, --gl-version <VERSION>            Specify OpenGL version to report. Useful to run applications that have a minimum OpenGL requirements.
+    -n, --no-error                        Disable error checking. Might result in undefined behavior and applications not working correctly.
+
+EOF
+
+}
+
+while [ $# -gt 0 ]; do
+
+    case "$1" in
+        -g | --gl-version) shift; ENV_VAR="${ENV_VAR} MESA_GL_VERSION_OVERRIDE=$1";;
+        -n | --no-error) shift; ENV_VAR="${ENV_VAR} MESA_NO_ERROR=1";;
+        -h | --help) shift; show_help; exit;;
+        *) break;;
+
+    esac
+
+    shift
+
+done
+
+env "$ENV_VAR" "$@"
