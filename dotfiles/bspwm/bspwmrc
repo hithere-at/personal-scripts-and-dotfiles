@@ -21,9 +21,15 @@ bspc config normal_border_color "#312F35"
 
 export QT_QPA_PLATFORMTHEME=qt6ct
 
-/usr/lib/polkit-kde-authentication-agent-1 &
+~/.config/bspwm/errwatch &
+~/.config/bspwm/ramwatch &
+~/.config/bspwm/swapwatch &
+
+xinput set-prop "$(xinput list | grep Touchpad | grep -o 'id=[^[]*' | sed 's/[^0-9]*//g')" "libinput Tapping Enabled" 1 &
+vibrant-cli eDP-1 1.3 &
+
 feh --bg-fill ~/Pictures/wallpapers/deidey_cuteee.jpg
+/usr/lib/polkit-kde-authentication-agent-1 &
 picom -b
 dunst &
-xinput set-prop 13 "libinput Tapping Enabled" 1 &
 /usr/bin/kdeconnectd &

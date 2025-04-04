@@ -3,8 +3,8 @@
 #
 
 # terminal emulator
-super + Return
-	~/.config/sxhkd/alacritty-cwd.sh
+super + {_,shift +}Return
+	{~/.config/sxhkd/alacritty-cwd.sh,bspc rule -a \* -o state=floating && alacritty}
 
 # btop
 ctrl + Escape
@@ -29,6 +29,10 @@ super + e
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
+
+# compositor switch
+alt + shift + F12
+    ~/.config/sxhkd/picom-switch.sh
 
 # screenshot
 Print
@@ -55,7 +59,7 @@ XF86AudioRaiseVolume
 	pamixer -i 5
 
 XF86TouchpadToggle
-    xinput set-prop 13 "libinput Tapping Enabled" 1
+    xinput set-prop "$(xinput | grep Touchpad | grep -o 'id=[^[]*' | sed 's/[^0-9]*//g')" "libinput Tapping Enabled" 1
 
 #
 # bspwm hotkeys
@@ -114,7 +118,7 @@ super + bracket{left,right}
 	bspc desktop -f {prev,next}.local
 
 # focus the last node/desktop
-super + {grave,Tab}
+alt + {grave,Tab}
 	bspc {node,desktop} -f last
 
 # focus the older or newer node in the focus history
