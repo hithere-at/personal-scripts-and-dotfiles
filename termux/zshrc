@@ -1,8 +1,10 @@
 HISTFILE=~/.zsh_history
 HISTSIZE=1000
 SAVEHIST=1000
+
 setopt autocd
 setopt appendhistory
+setopt PROMPT_SUBST
 
 emulate sh -c '. /data/data/com.termux/files/usr/etc/profile'
 
@@ -14,18 +16,32 @@ preexec() {
 	printf "\n"
 }
 
+precmd() {
+
+    if [ -z $VIRTUAL_ENV_PROMPT ]; then
+        VENV_MODULE="%F{#eeb8cb}\ue0bc%f"
+
+    else
+        VENV_MODULE="%F{#eeb8cb}%K{#cac3dc}\ue0bc%f%k%F{#48454e}%K{#cac3dc} \ue73c $VIRTUAL_ENV_PROMPT %f%k%F{#cac3dc}\ue0bc%f"
+
+    fi
+
+    PROMPT=$'\n%F{#33275e}%K{#ccbeff} \uf015 %n@%M %f%k%F{#ccbeff}%K{#eeb8cb}\ue0bc%f%k%F{#492534}%K{#eeb8cb} %(3~|.../%2~|%~) %f%k$(echo -ne $VENV_MODULE) \n%F{000}%K{255} %% %f%k%F{255}\ue0b0%f '
+
+}
+
 bindkey "^[[H" beginning-of-line
 bindkey "^[[F" end-of-line
-bindkey "^[[5~" backward-word
-bindkey "^[[6~" forward-word
+bindkey "^[[1;5D" backward-word
+bindkey "^[[1;5C" forward-word
 
 alias ls='eza --icons --color=auto'
 alias ll='ls -lh'
 alias cte='chmod 755'
 alias grep='grep --color=auto'
+alias rootshell='rish -c "exec zsh"'
 
 source /data/data/com.termux/files/usr/share/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-PROMPT=$'\n%F{#33275e}%K{#ccbeff} \uf015 %n@%M %f%k%F{#ccbeff}%K{#eeb8cb}\ue0bc%f%k%F{#492534}%K{#eeb8cb} \uf4d3 %(4~|.../%3~|%~) %f%k%F{#eeb8cb}\ue0bc%f\n%F{000}%K{255} %% %f%k%F{255}\ue0b0%f '
 #PS1='%% '
 # vim: set noet ft=zsh tw=4 sw=4 ff=unix
