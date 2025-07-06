@@ -13,7 +13,6 @@ bindkey -e
 zstyle :compinstall filename '/home/$USER/.zshrc'
 
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-#source /usr/share/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
 source ~/.local/share/zsh/plugins/zsh-shift-select/zsh-shift-select.plugin.zsh
 
@@ -31,10 +30,66 @@ alias grep='grep --color=auto'
 preexec() {
 	printf "\n"
 
+    TIME_START=$(date +"%s%3N")
+
 }
 
 precmd() {
 
+    RET_CODE=$?
+
+    local delta hours minutes seconds milisecs
+
+    TIME_END=$(date +"%s%3N")
+    [ -z $TIME_START ] && delta=0 || delta=$((TIME_END - TIME_START))
+
+    # Time calculations
+    while true; do
+
+        if [ $delta -ge 3600000 ]; then
+            hours=$((delta / 3600000))
+            delta=$((delta - 3600000))
+
+        elif [ $delta -ge 60000 ]; then
+            minutes=$((delta / 60000))
+            delta=$((delta - 60000))
+
+        elif [ $delta -ge 1000 ]; then
+            seconds=$((delta / 1000))
+            delta=$((delta - 1000))
+
+        else
+            milisecs=$delta
+            delta=0
+
+        fi
+
+        if [ $delta -eq 0 ]; then
+            break
+
+        fi
+
+    done
+
+    # Time display
+    if [ -z $TIME_START ]; then
+        TIME_MODULE="%F{255}%K{#5f5c63} \ue384 init %f%k"
+
+    elif [ -z $seconds ]; then
+        TIME_MODULE="%F{255}%K{#5f5c63} \ue384 ${milisecs}ms %f%k"
+
+    elif [ -z $minutes ]; then
+        TIME_MODULE="%F{255}%K{#5f5c63} \ue384 ${seconds}s %f%k"
+
+    elif [ -z $hours ]; then
+        TIME_MODULE="%F{255}%K{#5f5c63} \ue384 ${minutes}m ${seconds}s %f%k"
+
+    else
+        TIME_MODULE="%F{255}%K{#5f5c63} \ue384 ${hours}h ${minutes}m ${seconds}s %f%k"
+
+    fi
+
+    # python virtual environment display
     if [ -z $VIRTUAL_ENV_PROMPT ]; then
         VENV_MODULE="%F{#eeb8cb}\ue0bc%f"
 
@@ -43,7 +98,16 @@ precmd() {
 
     fi
 
-    PROMPT=$'\n%F{#33275e}%K{#ccbeff} \uf015 %n@%M %f%k%F{#ccbeff}%K{#eeb8cb}\ue0bc%f%k%F{#492534}%K{#eeb8cb} %(3~|.../%2~|%~) %f%k$(echo -ne $VENV_MODULE) \n%F{000}%K{255} %% %f%k%F{255}\ue0b0%f '
+    # command success and fail display
+    if [ $RET_CODE -eq 0 ]; then
+        CMD_MODULE="%F{#5f5c63}%K{#f4eff7}\ue0bc%f%k%F{000}%K{#f4eff7} %% %f%k%F{#f4eff7}\ue0b0%f"
+
+    else
+        CMD_MODULE="%F{#5f5c63}%K{#48454e}\ue0bc%f%k%F{255}%K{#48454e} %% %f%k%F{#48454e}\ue0b0%f"
+
+    fi
+
+    PROMPT=$'\n%F{#33275e}%K{#ccbeff} \uf015 %n@%M %f%k%F{#ccbeff}%K{#eeb8cb}\ue0bc%f%k%F{#492534}%K{#eeb8cb} %(3~|.../%2~|%~) %f%k$(echo -ne $VENV_MODULE) \n$(echo -ne $TIME_MODULE)$(echo -ne $CMD_MODULE) '
 
 }
 
