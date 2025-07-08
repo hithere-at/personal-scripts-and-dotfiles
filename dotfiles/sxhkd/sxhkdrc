@@ -36,7 +36,7 @@ alt + shift + F12
 
 # screenshot
 Print
-	scrot -F "/home/astesia/Pictures/Screenshots/Screenshot_%Y%m%d_%H%M%S.png"
+	scrot -F "$HOME/Pictures/Screenshots/Screenshot_%Y%m%d_%H%M%S.png"
 
 # function keys
 
