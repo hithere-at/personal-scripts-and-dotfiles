@@ -1,0 +1,130 @@
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.zsh_history
+HISTSIZE=1000
+SAVEHIST=1000
+
+setopt autocd
+setopt appendhistory
+setopt PROMPT_SUBST
+
+bindkey -e
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/$USER/.zshrc'
+
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+#source /usr/share/zsh/plugins/zsh-autocomplete/zsh-autocomplete.plugin.zsh
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.plugin.zsh
+source $HOME/.local/share/zsh/plugins/zsh-shift-select/zsh-shift-select.plugin.zsh
+
+bindkey "^[[H" beginning-of-line
+bindkey "^[[F" end-of-line
+bindkey "^[[3~" delete-char
+bindkey "^[[1;5D" backward-word
+bindkey "^[[1;5C" forward-word
+
+alias ls='eza --icons --color=auto'
+alias ll='ls -lh'
+alias cte='chmod 755'
+alias grep='grep --color=auto'
+
+preexec() {
+	printf "\n"
+
+    TIME_START=$(date +"%s%3N")
+
+}
+
+precmd() {
+
+    RET_CODE=$?
+
+    local delta hours minutes seconds milisecs
+
+    TIME_END=$(date +"%s%3N")
+    [ -z $TIME_START ] && delta=0 || delta=$((TIME_END - TIME_START))
+
+    # Time calculations
+    while true; do
+
+        if [ $delta -ge 3600000 ]; then
+            hours=$((delta / 3600000))
+            delta=$((delta - (3600000 * hours)))
+
+        elif [ $delta -ge 60000 ]; then
+            minutes=$((delta / 60000))
+            delta=$((delta - (60000 * minutes)))
+
+        elif [ $delta -ge 1000 ]; then
+            seconds=$((delta / 1000))
+            delta=$((delta - (1000 * seconds)))
+
+        else
+            milisecs=$delta
+            delta=0
+
+        fi
+
+        if [ $delta -eq 0 ]; then
+            break
+
+        fi
+
+    done
+
+    # Time display
+    if [ -z $TIME_START ]; then
+        TIME_MODULE="%F{#ccc4cb} init %f%"
+
+    elif [ -z $seconds ]; then
+        TIME_MODULE="%F{#ccc4cb} ${milisecs}ms %f"
+
+    elif [ -z $minutes ]; then
+        TIME_MODULE="%F{#ccc4cb} ${seconds}s %f"
+
+    elif [ -z $hours ]; then
+        TIME_MODULE="%F{#ccc4cb} ${minutes}m ${seconds}s %f"
+
+    else
+        TIME_MODULE="%F{#ccc4cb} ${hours}h ${minutes}m ${seconds}s %f"
+
+    fi
+
+    # python virtual environment display
+    if ! [ -z $VIRTUAL_ENV_PROMPT ]; then
+        VENV_MODULE="%F{#787474} // %f%F{#e2e2e5}\ue73c $VIRTUAL_ENV_PROMPT%f"
+
+    else
+        # allow reset
+        VENV_MODULE=""
+
+    fi
+
+    PROMPT=$'\n%F{#e2e2e5}\uf015 %n@%m%f%F{#787474} // %f%F{#bfc7d4}\uf07b %(3~|.../%2~|%~)%f$(echo -ne "$VENV_MODULE")\n$(echo -ne "$TIME_MODULE") \u00bb '
+
+}
+
+cd() {
+    builtin cd "$@"
+    ret=$?
+
+    if [ $ret -eq 0 ]; then
+        eza --icons --color=auto
+
+    fi
+
+}
+
+if [ -z "$XDG_CURRENT_DESKTOP" ]; then
+	export QT_QPA_PLATFORMTHEME=qt6ct
+
+fi
+
+export PATH=$PATH:$HOME/.local/bin
+export PF_INFO="ascii title os host kernel uptime pkgs memory shell wm palette"
+
+pfetch
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall

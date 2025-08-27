@@ -28,6 +28,7 @@ export QT_QPA_PLATFORMTHEME=qt6ct
 xinput set-prop "$(xinput list | grep Touchpad | grep -o 'id=[^[]*' | sed 's/[^0-9]*//g')" "libinput Tapping Enabled" 1 &
 vibrant-cli eDP-1 1.3 &
 
+xsetroot -cursor_name left_ptr &
 feh --bg-fill ~/Pictures/wallpapers/is_this_oc.jpg
 /usr/lib/polkit-kde-authentication-agent-1 &
 picom -b
