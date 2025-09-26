@@ -1,0 +1,28 @@
+#!/bin/sh
+
+BAT_DEV="BAT0"
+LOCK=0
+
+while true; do
+
+    capacity="$(cat /sys/class/power_supply/$BAT_DEV/capacity)"
+
+    if [ $capacity -le 3 ] && ! [ $LOCK -eq 3 ]; then
+        notify-send 'SYSTEM NOTICE' "Shutting down in 1 minute"
+        LOCK=3
+        sleep 60
+        systemctl poweroff
+
+    elif [ $capacity -le 10 ] && ! [ $LOCK -eq 2 ]; then
+        notify-send 'SYSTEM NOTICE' "Battery is running very low: ${capacity}%"
+        LOCK=2
+
+    elif [ $capacity -le 20 ] && ! [ $LOCK -eq 1 ]; then
+        notify-send 'SYSTEM NOTICE' "Battery is running low: ${capacity}%"
+        LOCK=1
+
+    fi
+
+    sleep 1
+
+done

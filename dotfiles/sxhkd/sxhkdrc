@@ -35,8 +35,11 @@ alt + shift + F12
     ~/.config/sxhkd/picom-switch.sh
 
 # screenshot
+shift + Print
+	scrot -F "$HOME/Pictures/Screenshots/Screenshot_%Y%m%d_%H%M%S.png" && ~/.config/bspwm/watchers/scwatch
+
 Print
-	scrot -F "$HOME/Pictures/Screenshots/Screenshot_%Y%m%d_%H%M%S.png"
+    QT_QPA_PLATFORMTHEME=qt6ct spectacle
 
 # function keys
 
@@ -75,7 +78,7 @@ super + {_,shift + }q
 
 # alternate between the tiled and monocle layout
 super + m
-	bspc desktop -l next
+	QT_QPA_PLATFORMTHEME=qt6ct elisa
 
 # send the newest marked node to the newest preselected node
 super + y

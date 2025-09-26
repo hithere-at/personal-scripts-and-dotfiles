@@ -1,0 +1,39 @@
+#!/usr/bin/env python3
+# this is ChatGPT generated code
+import pyudev
+import subprocess
+
+context = pyudev.Context()
+monitor = pyudev.Monitor.from_netlink(context)
+monitor.filter_by("usb")
+
+devices = {}
+
+for action, device in monitor:
+    key = device.sys_path
+    vendor = device.get("ID_VENDOR")
+    model = device.get("ID_MODEL")
+
+    if action == "add":
+        # Cache the info
+        devices[key] = (vendor, model)
+        if vendor or model:
+            vendor = vendor.replace("_", " ") or 'Unknown'
+            model = model.replace("_", " ") or ''
+            subprocess.run([
+                "notify-send",
+                "SYSTEM NOTICE",
+                f"USB device {vendor or 'Unknown'} {model or ''} connected"
+            ])
+
+    elif action == "remove":
+        # Look up cached info
+        vendor, model = devices.pop(key, ("Unknown", "Device"))
+        if vendor or model:
+            vendor = vendor.replace("_", " ") or 'Unknown'
+            model = model.replace("_", " ") or ''
+            subprocess.run([
+                "notify-send",
+                "SYSTEM NOTICE",
+                f"USB device {vendor} {model} disconnected"
+            ])

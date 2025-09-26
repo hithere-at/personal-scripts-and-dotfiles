@@ -1,0 +1,4 @@
+#!/bin/sh
+
+SCREENSHOT_FILE=$(find "${HOME}/Pictures/Screenshots" -type f -printf '%T@ %p\n' | sort -nr | head -1 | cut -d' ' -f2-)
+notify-send -u normal 'SYSTEM NOTICE' "Screenshot saved at $SCREENSHOT_FILE"

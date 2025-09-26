@@ -21,9 +21,12 @@ bspc config normal_border_color "#312F35"
 
 export QT_QPA_PLATFORMTHEME=qt6ct
 
-~/.config/bspwm/errwatch &
-~/.config/bspwm/ramwatch &
-~/.config/bspwm/swapwatch &
+~/.config/bspwm/watchers/errwatch &
+~/.config/bspwm/watchers/ramwatch &
+~/.config/bspwm/watchers/batwatch &
+~/.config/bspwm/watchers/swapwatch &
+~/.config/bspwm/watchers/usbwatch &
+~/.config/bspwm/watchers/musicwatch &
 
 xinput set-prop "$(xinput list | grep Touchpad | grep -o 'id=[^[]*' | sed 's/[^0-9]*//g')" "libinput Tapping Enabled" 1 &
 vibrant-cli eDP-1 1.3 &

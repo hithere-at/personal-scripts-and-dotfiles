@@ -1,8 +1,8 @@
 #!/bin/sh
 
 # kernel error message baseline. some modules doesnt actually throw a real error (e.g when nvidia module is loading) and the order of some "error" messages are different
-BASELINE1="1bd81aaec66cc7475518b1aed3b2223e6cdde4ba03dfd9cb07c80b41950ecc4d"
-BASELINE2="f1287d11bc40c083ee17616d884d7c63f50b1363e92f9607d2df37a18784005f"
+BASELINE1="f1287d11bc40c083ee17616d884d7c63f50b1363e92f9607d2df37a18784005f"
+BASELINE2="1bd81aaec66cc7475518b1aed3b2223e6cdde4ba03dfd9cb07c80b41950ecc4d"
 
 while $true; do
 
