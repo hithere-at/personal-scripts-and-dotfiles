@@ -5,12 +5,15 @@ LAST=""
 while true; do
 
     current="$(playerctl metadata --format '{{artist}} - {{title}}' 2> /dev/null)"
-    sleep 0.1
+    length=$(printf "$current" | wc -c)
+    printf "$length\n"
 
-    if [ -n "$current" ] && [ "$current" != "$LAST" ] && ! [ "$(printf $current | wc -c)" -eq 4 ]; then
+    if [ "$current" != "$LAST" ] && ! [ "$length" -le 3 ]; then
+
         art="$(playerctl metadata mpris:artUrl 2> /dev/null)"
+        ! [ $? -ge 1 ] && sleep 0.1
 
-        ! [ $? -ge 1 ] && notify-send "SYSTEM NOTICE" "Now playing: $current" -i "$art"
+        notify-send "SYSTEM NOTICE" "Now playing: $current" -i "$art"
         LAST="$current"
 
     fi

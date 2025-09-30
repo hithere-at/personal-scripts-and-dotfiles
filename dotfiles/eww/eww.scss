@@ -1,0 +1,63 @@
+* {
+    all: unset;
+    font-family: "CaskaydiaMono NF", "Noto Sans CJK JP";
+}
+
+.bat_widget {
+    color: rgb(226, 226, 229);
+    padding: 6px;
+    background-color: rgba(58, 56, 62, 0.6);
+    border-radius: 6px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgb(226, 226, 229);
+
+}
+
+.bat_chart {
+    background-color: rgba(58, 56, 62, 0.6);
+
+}
+
+.bat_status_cont {
+    padding-left: 15px;
+
+}
+
+.music_widget {
+    padding: 6px;
+    background-color: rgba(58, 56, 62, 0.6);
+    border-radius: 6px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: rgb(226, 226, 229);
+
+}
+
+.music_artist_label {
+    color: rgb(173, 173, 171);
+
+}
+
+.music_playpause_button {
+    background-color: rgb(226, 226, 229);
+    color: rgb(58, 56, 62);
+    border-radius: 50%;
+
+}
+
+.music_controls {
+    padding-top: 16px;
+
+}
+
+.music_info label {
+    font-size: 1.2em;
+
+}
+
+.music_controls button {
+    font-size: 1.5em;
+    padding: 17px;
+
+}

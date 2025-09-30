@@ -1,0 +1,12 @@
+#!/bin/sh
+
+BAT_DEV="BAT0"
+BAT_PATH="/sys/class/power_supply/${BAT_DEV}"
+
+case "$1" in
+
+    "-c") cat ${BAT_PATH}/capacity;;
+    "-s") cat ${BAT_PATH}/status;;
+    "-y") cat ${BAT_PATH}/cycle_count;;
+
+esac

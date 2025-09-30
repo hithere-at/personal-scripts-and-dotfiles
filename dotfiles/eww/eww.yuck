@@ -1,0 +1,104 @@
+(defpoll battery_capacity :interval "1s" "./poller/battery -c")
+(defpoll battery_status :interval "1s" "./poller/battery -s")
+(defpoll battery_cycle :interval "1s" "./poller/battery -y")
+
+(defpoll music_artist :interval "1s" "./poller/music -a")
+(defpoll music_title :interval "1s" "./poller/music -t")
+(defpoll music_art :interval "1s" "./poller/music -u")
+
+(defwindow bat-window :monitor 0
+                      :geometry (geometry :x "280px"
+                                          :y "37px"
+                                          :width "235px"
+                                          :height "70px"
+                                          :anchor "top center")
+                      :stacking "fg"
+                      :wm-ignore true
+                      :windowtype "utility"
+
+(bat-widget))
+
+(defwindow music-window :monitor 0
+                        :geometry (geometry :x "200px"
+                                            :y "37px"
+                                            :width "400px"
+                                            :height "200px"
+                                            :anchor "top left")
+
+                        :stacking "fg"
+                        :wm-ignore true
+                        :windowtype "utility"
+(music-widget))
+
+(defwidget bat-widget []
+
+    (box :orientation "h"
+         :class "bat_widget"
+         :spacing 0
+         :space-evenly false
+
+        (box :orientation "h"
+             :spacing 0
+             :width 50
+             :class "bat_cont"
+
+             (circular-progress :thickness 7
+                                :class "bat_chart"
+                                :value battery_capacity
+                                :clockwise true
+                                :start-at 270
+
+             (label :text "󰁹"))
+
+        )
+
+        (box :orientation "v"
+             :space-evenly false
+             :valign "center"
+             :class "bat_status_cont"
+
+             (label :halign "start" :text "Status: ${battery_status}")
+             (label :halign "start" :text "Charge cycle: ${battery_cycle}")
+
+        )
+
+    )
+
+)
+
+(defwidget music-widget []
+
+    (box :orientation: "h"
+         :class "music_widget"
+         :spacing 0
+
+        (box :orientation "h"
+             :spacing 0
+             :width 150
+
+            (image :image-width 150 :path "${music_art}")
+
+        )
+
+        (box :orientation "v"
+             :space-evenly false
+             :valign "center"
+             :class "music_info"
+
+            (label :class "music_title_label" :text "${music_title}")
+            (label :class "music_artist_label" :text "${music_artist}")
+
+            (box :orientation "h"
+                 :class "music_controls"
+
+                (button :class "music_prev_button" :onclick "playerctl previous" "󰒮")
+                (button :class "music_playpause_button" :onclick "playerctl play-pause" "󰐎")
+                (button :class "music_next_button" :onclick "playerctl next" "󰒭")
+
+            )
+
+        )
+
+    )
+
+)

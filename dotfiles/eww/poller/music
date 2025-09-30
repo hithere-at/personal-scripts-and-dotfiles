@@ -1,0 +1,11 @@
+#!/bin/sh
+
+case "$1" in
+
+    "-a") playerctl metadata artist;;
+    "-t") playerctl metadata title;;
+    "-u") art="$(playerctl metadata mpris:artUrl | sed 's|^file://||')"
+          echo "$art"
+        ;;
+
+esac

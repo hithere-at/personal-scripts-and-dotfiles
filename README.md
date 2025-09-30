@@ -13,6 +13,7 @@ This is my collection of scripts and dotfiles that i used. This thing exist beca
 - Material you based color scheme
 - Very minimalist and modern
 - Lots of system informations on screen (CPU load, swap and memory usage, username and hostname display)
+- Widgets with eww
 
 ## Requirements
 
@@ -33,6 +34,7 @@ This is my collection of scripts and dotfiles that i used. This thing exist beca
 - btop
 - CAVA
 - dunst
+- eww
 - picom
 - rofi
 - Polybar
