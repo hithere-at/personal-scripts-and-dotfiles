@@ -11,7 +11,7 @@ configuration {
 @theme "/dev/null"
 
 * {
-    background-color: #312F35;
+    background-color: rgba(58, 56, 62, 0.6);
 
 }
 
@@ -19,17 +19,26 @@ window {
     width: 45%;
     height: 60%;
     border: 2px;
-    border-color: #E2E2E5;
+    border-color: #aad291;
     padding: 0.5em;
 
 }
 
-element { padding: 0.5em; }
-element normal { text-color: #FFFFFF; }
+element {
+    padding: 0.5em;
+    background-color: rgba(0, 0, 0, 0);
+
+}
+
+element normal {
+    text-color: #f4eff7;
+    background-color: rgba(0, 0, 0, 0);
+
+}
 
 element selected {
-    text-color: #E2E2E5;
-    background-color: #6D7D97;
+    text-color: #193807;
+    background-color: #aad291;
 
 }
 
@@ -47,11 +56,11 @@ element-icon {
 }
 
 inputbar { padding: 0.5em; }
-prompt { text-color: #FFFFFF; }
+prompt { text-color: #f4eff7; }
 
 entry {
     placeholder: "type something...";
-    text-color: #FFFFFF;
-    placeholder-color: #6A6177;
+    text-color: #f4eff7;
+    placeholder-color: #848583;
 
 }

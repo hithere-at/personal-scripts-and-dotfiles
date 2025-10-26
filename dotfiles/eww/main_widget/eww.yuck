@@ -1,0 +1,344 @@
+(defpoll backlight_percent :interval "1s" "../poller/backlight percent")
+(defpoll backlight_icon :interval "1s" "../poller/backlight icon")
+
+(defpoll volume_percent :interval "1s" "../poller/volume percent")
+(defpoll volume_icon :interval "1s" "../poller/volume icon")
+
+(defpoll battery_icon :interval "1s" "../poller/battery icon")
+
+(defpoll cpu_temp :interval "1s" "../poller/cputemp")
+
+(defwindow powermenu-window :monitor 0
+                            :geometry (geometry :width "1366px"
+                                                :height "768px"
+                                                :anchor "center center")
+                            :wm-ignore true
+                            :windowtype "normal"
+                            :stacking "fg"
+
+(powermenu-widget))
+
+(defwindow backlight-window :monitor 0
+                            :geometry (geometry :x "65px"
+                                                :y "164px"
+                                                :width "200px"
+                                                :height "100px"
+                                                :anchor "left center")
+                            :wm-ignore true
+                            :windowtype "toolbar"
+                            :stacking "fg"
+
+(backlight-widget))
+
+(defwindow battery-window :monitor 0
+                         :geometry (geometry :x "65px"
+                                             :y "126px"
+                                             :width "200px"
+                                             :height "100px"
+                                             :anchor "left center")
+                         :wm-ignore true
+                         :windowtype "toolbar"
+                         :stacking "fg"
+
+(battery-widget))
+
+(defwindow volume-window :monitor 0
+                         :geometry (geometry :x "65px"
+                                             :y "148px"
+                                             :width "200px"
+                                             :height "100px"
+                                             :anchor "left center")
+                         :wm-ignore true
+                         :windowtype "toolbar"
+                         :stacking "fg"
+
+(volume-widget))
+
+(defwindow health-window :monitor 0
+                         :geometry (geometry :x "65px"
+                                             :y "45px"
+                                             :width "200px"
+                                             :height "150px"
+                                             :anchor "left center")
+                         :wm-ignore true
+                         :windowtype "toolbar"
+                         :stacking "fg"
+
+(health-widget))
+
+(defwidget powermenu-widget []
+
+    (box :class "powermenu_widget"
+         :orientation "v"
+         :space-evenly false
+         :spacing -64
+
+         (box :class "power_box"
+              :orientation "h"
+              :width 1366
+              :height 768
+              :space-evenly true
+              :spacing -500
+
+              (box :orientation "v"
+                   :halign "center"
+                   :valign "center"
+                   :space-evenly false
+                   :spacing 20
+
+                   (box :spacing 0
+                        :class "shutdown_box"
+                        :space-evenly true
+                        :width 192
+                        :height 192
+
+                        (button :class "shutdown_button"
+                                :onclick "systemctl poweroff"
+                                "󰐥"
+
+                        )
+
+                   )
+
+                   (label :class "shutdown_label" :text "Shutdown")
+
+              )
+
+              (box :orientation "v"
+                   :valign "center"
+                   :halign "center"
+                   :space-evenly false
+                   :spacing 20
+
+                   (box :spacing 0
+                        :class "reboot_box"
+                        :space-evenly true
+                        :width 192
+                        :height 192
+
+                        (button :class "reboot_button"
+                                :onclick "systemctl reboot"
+                                ""
+
+                        )
+
+                   )
+
+                   (label :class "reboot_label" :text "Reboot")
+
+              )
+
+              (box :orientation "v"
+                   :valign "center"
+                   :halign "center"
+                   :space-evenly false
+                   :spacing 20
+
+                   (box :spacing 0
+                        :class "logout_box"
+                        :space-evenly true
+                        :width 192
+                        :height 192
+
+                        (button :class "logout_button"
+                                :onclick "bspc quit"
+                                "󰈆"
+
+                        )
+
+                   )
+
+                   (label :class "logout_label" :text "Logout")
+
+              )
+
+         )
+
+         (box :class "close_box"
+              :width 64
+              :height 64
+              :halign "end"
+              :valign "end"
+
+              (button :class "close_button"
+                      :onclick "eww -c . close powermenu-window"
+                      ""
+
+              )
+
+         )
+
+    )
+
+)
+
+(defwidget backlight-widget []
+
+    (box :class "backlight_widget"
+         :spacing 0
+         :space-evenly false
+         :orientation "h"
+
+         (box :class "backlight_container"
+              :spacing 0
+              :width 64
+
+              (circular-progress :thickness 7
+                                 :class "backlight_chart"
+                                 :value backlight_percent
+                                 :clockwise true
+                                 :start-at 75
+
+                    (label :text "${backlight_icon}" :class "backlight_icon")
+
+              )
+
+         )
+
+         (box :orientation "v"
+              :space-evenly false
+              :valign "center"
+              :class "backlight_stat_container"
+              :spacing 0
+
+              (label :halign "start" :text "Backlight")
+              (label :halign "start" :text "Percentage: ${backlight_percent}%")
+
+         )
+
+    )
+
+)
+
+(defwidget volume-widget []
+
+    (box :class "volume_widget"
+         :spacing 0
+         :space-evenly false
+         :orientation "h"
+
+         (box :class "volume_container"
+              :spacing 0
+              :width 64
+
+              (circular-progress :thickness 7
+                                 :class "volume_chart"
+                                 :value volume_percent
+                                 :clockwise true
+                                 :start-at 75
+
+                    (label :text "${volume_icon}" :class "volume_icon")
+
+              )
+
+         )
+
+         (box :orientation "v"
+              :space-evenly false
+              :valign "center"
+              :class "volume_stat_container"
+              :spacing 0
+
+              (label :halign "start" :text "Volume")
+              (label :halign "start" :text "Percentage: ${volume_percent}%")
+
+         )
+
+    )
+
+)
+(defwidget battery-widget []
+
+    (box :class "battery_widget"
+         :spacing 0
+         :space-evenly false
+         :orientation "h"
+
+         (box :class "battery_container"
+              :spacing 0
+              :width 64
+
+              (circular-progress :thickness 7
+                                 :class "battery_chart"
+                                 :value {EWW_BATTERY.BAT0.capacity}
+                                 :clockwise true
+                                 :start-at 75
+
+                    (label :text "${battery_icon}" :class "battery_icon")
+
+              )
+
+         )
+
+         (box :orientation "v"
+              :space-evenly false
+              :valign "center"
+              :class "battery_stat_container"
+              :spacing 0
+
+              (label :halign "start" :text "Status: ${EWW_BATTERY.BAT0.status}")
+              (label :halign "start" :text "Capacity: ${EWW_BATTERY.BAT0.capacity}%")
+
+         )
+
+    )
+
+)
+
+(defwidget health-widget []
+
+    (box :class "health_widget"
+         :orientation "h"
+         :space-evenly true
+
+         (box :orientation "v"
+              :space-evenly false
+
+              (label :class "cpu_icon" :text "󰍛")
+              (scale :class "cpu_bar"
+                     :halign "center"
+                     :valign "center"
+                     :flipped true
+                     :min 0
+                     :max 101
+                     :value {EWW_CPU.avg}
+                     :orientation "v")
+              (label :class "cpu_text" :text "${ceil(EWW_CPU.avg)}%")
+
+         )
+
+         (box :orientation "v"
+              :space-evenly false
+
+              (label :class "mem_icon" :text "")
+              (scale :class "temp_bar"
+                      :halign "center"
+                      :valign "center"
+                      :flipped true
+                      :min 0
+                      :max 101
+                      :value {EWW_RAM.used_mem_perc}
+                      :orientation "v")
+              (label :class "mem_text" :text "${ceil(EWW_RAM.used_mem_perc)}%")
+
+         )
+
+         (box :orientation "v"
+              :space-evenly false
+
+              (label :class "temp_icon" :text "")
+              (scale :class "temp_bar"
+                     :halign "center"
+                     :valign "center"
+                     :flipped true
+                     :min 0
+                     :max 101
+                     :value cpu_temp
+                     :orientation "v")
+              (label :class "temp_text" :text "${cpu_temp}°C")
+
+         )
+
+    )
+
+)

@@ -1,12 +1,36 @@
 #!/bin/sh
 
+get_icon() {
+
+    if [ $1 -le 20 ]; then
+        echo "󰁺"
+
+    elif [ $1 -le 40 ]; then
+        echo "󰁾"
+
+    elif [ $1 -le 60 ]; then
+        echo "󰂀"
+
+    elif [ $1 -le 80 ]; then
+        echo "󰂂"
+
+    else
+        echo "󰁹"
+
+    fi
+
+}
+
+
+
 BAT_DEV="BAT0"
-BAT_PATH="/sys/class/power_supply/${BAT_DEV}"
+BAT_CAPACITY=$(cat /sys/class/power_supply/${BAT_DEV}/capacity)
+BAT_STATUS="$(cat /sys/class/power_supply/${BAT_DEV}/status)"
 
 case "$1" in
 
-    "-c") cat ${BAT_PATH}/capacity;;
-    "-s") cat ${BAT_PATH}/status;;
-    "-y") cat ${BAT_PATH}/cycle_count;;
+    "icon") [ "$BAT_STATUS" = "Discharging" ] && get_icon $BAT_CAPACITY || echo "󰂄";;
+    "status") echo "$BAT_STATUS";;
+    "capacity") echo $BAT_CAPACITY;;
 
 esac

@@ -1,25 +1,46 @@
 #!/bin/sh
 
+get_bat_status() {
+    cat /sys/class/power_supply/$1/status
+
+}
+
 BAT_DEV="BAT0"
 LOCK=0
+CHARGE_LOCK=0
 
 while true; do
 
-    capacity="$(cat /sys/class/power_supply/$BAT_DEV/capacity)"
+    status="$(get_bat_status $BAT_DEV)"
 
-    if [ $capacity -le 3 ] && ! [ $LOCK -eq 3 ]; then
-        notify-send 'SYSTEM NOTICE' "Shutting down in 1 minute"
-        LOCK=3
-        sleep 60
-        systemctl poweroff
+    if ! [ "$status" = "Charging" ]; then
 
-    elif [ $capacity -le 10 ] && ! [ $LOCK -eq 2 ]; then
-        notify-send 'SYSTEM NOTICE' "Battery is running very low: ${capacity}%"
-        LOCK=2
+        CHARGE_LOCK=0
+        capacity="$(cat /sys/class/power_supply/$BAT_DEV/capacity)"
+        echo $LOCK
 
-    elif [ $capacity -le 20 ] && ! [ $LOCK -eq 1 ]; then
-        notify-send 'SYSTEM NOTICE' "Battery is running low: ${capacity}%"
-        LOCK=1
+        if [ $capacity -le 3 ] && ! [ $LOCK -ge 3 ]; then
+            notify-send 'SYSTEM NOTICE' "Battery is basically non-existent. Shutting down in 1 minute"
+            LOCK=3
+            sleep 60
+            current_status="$(get_bat_status $BAT_DEV)"
+            [ "$current_status" = "Discharging" ] && systemctl poweroff || continue
+
+        elif [ $capacity -le 10 ] && ! [ $LOCK -ge 2 ]; then
+            notify-send 'SYSTEM NOTICE' "Battery is running very low: ${capacity}%"
+            LOCK=2
+
+        elif [ $capacity -le 20 ] && ! [ $LOCK -ge 1 ]; then
+            notify-send 'SYSTEM NOTICE' "Battery is running low: ${capacity}%"
+            LOCK=1
+
+        elif [ $capacity -gt 20 ]; then
+            LOCK=0
+
+        fi
+
+    elif [ "$status" = "Charging" ]
+        CHARGE_LOCK=1
 
     fi
 

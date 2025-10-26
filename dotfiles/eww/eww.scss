@@ -1,63 +1,136 @@
 * {
     all: unset;
-    font-family: "CaskaydiaMono NF", "Noto Sans CJK JP";
+    font-family: "JetBrainsMono NFM", "Noto Sans CJK JP";
+
 }
 
-.bat_widget {
-    color: rgb(226, 226, 229);
-    padding: 6px;
-    background-color: rgba(58, 56, 62, 0.6);
-    border-radius: 6px;
+tooltip {
+    color: #f4eff7;
+    background: rgb(58, 56, 62);
+    border-radius: 3px;
     border-width: 2px;
     border-style: solid;
-    border-color: rgb(226, 226, 229);
+    border-color: rgb(170, 210, 145);
 
 }
 
-.bat_chart {
-    background-color: rgba(58, 56, 62, 0.6);
-
-}
-
-.bat_status_cont {
-    padding-left: 15px;
-
-}
-
-.music_widget {
-    padding: 6px;
-    background-color: rgba(58, 56, 62, 0.6);
-    border-radius: 6px;
+.bar_widget {
+    background: rgba(58, 56, 62, 0.6);
+    border-radius: 3px;
     border-width: 2px;
     border-style: solid;
-    border-color: rgb(226, 226, 229);
+    border-color: rgb(170, 210, 145);
 
 }
 
-.music_artist_label {
-    color: rgb(173, 173, 171);
+.power_widget {
+
+    background: #aad291;
+    color: #183807;
+    border-width: 1px;
+    border-radius: 3px;
+    border-style: solid;
+    border-color: #aad291;
+    margin: 6px;
+    font-size: 20px;
 
 }
 
-.music_playpause_button {
-    background-color: rgb(226, 226, 229);
-    color: rgb(58, 56, 62);
-    border-radius: 50%;
+.power_button {
+
+    transition: 175ms ease-in-out background;
+
+    &:hover {
+        transition: 175ms ease-in-out background;
+        background: #c7eeae;
+
+    }
 
 }
 
-.music_controls {
-    padding-top: 16px;
+.system_widget, .clock_widget, .health_widget {
+
+    border-width: 1px;
+    border-radius: 3px;
+    border-style: solid;
+    border-color: #aad291;
+    margin: 6px;
+    color: #f4eff7;
+    font-size: 20px;
 
 }
 
-.music_info label {
-    font-size: 1.2em;
+.backlight_button, .volume_button, .battery_button, .launcher_button, .health_button {
+
+    transition: 175ms ease-in-out background, color;
+
+    &:hover {
+        transition: 175ms ease-in-out background, color;
+        background: #aad291;
+        color: #183807;
+
+    }
 
 }
 
-.music_controls button {
-    font-size: 1.5em;
-    padding: 17px;
+.date_label {
+    margin-top: 15px;
+    font-size: 12px;
+
+}
+
+.launcher_widget, .workspace_widget {
+
+    border-width: 1px;
+    border-radius: 3px;
+    border-style: solid;
+    border-color: #aad291;
+    margin: 6px;
+    color: #f4eff7;
+    font-size: 25px;
+
+}
+
+.workspace_widget {
+
+    border-width: 1px;
+    border-radius: 3px;
+    border-style: solid;
+    border-color: #aad291;
+    margin: 6px;
+    color: #f4eff7;
+    font-size: 15px;
+
+}
+
+.ws-u0of {
+    color: #848583;
+    transition: 175ms ease-in-out background;
+
+    &:hover {
+        transition: 175ms ease-in-out background;
+        background: rgba(128, 128, 128, 0.4);
+
+    }
+
+}
+
+.ws-u0o1f, .ws-u0o2f, .ws-u0o3f, .ws-u0o4f, .ws-u0o5f, .ws-u0o6f {
+
+    color: #f4eff7;
+    transition: 175ms ease-in-out background;
+
+    &:hover {
+        transition: 175ms ease-in-out background;
+        background: rgba(128, 128, 128, 0.4);
+
+    }
+
+}
+
+
+.ws-u0o1f1, .ws-u0o2f2, .ws-u0o3f3, .ws-u0o4f4, .ws-u0o5f5, .ws-u0o6f6, .ws-u0of1, .ws-u0of2, .ws-u0of3, .ws-u0of4, .ws-u0of5, .ws-u0of6  {
+    color: #193807;
+    background: #aad291;
 
 }

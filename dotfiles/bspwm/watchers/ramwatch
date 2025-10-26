@@ -4,13 +4,14 @@
 LOCK=0
 
 while true; do
-    used_ram=$(free -g | grep Mem | awk '{print $3}' | sed 's/[A-Za-z]*//g')
+    used_ram=$(free -m | grep Mem | awk '{print $3}')
 
-    if [ $used_ram -ge 4 ] && [ $LOCK -eq 0 ]; then
+    if [ $used_ram -ge 4000 ] && [ $LOCK -eq 0 ]; then
         LOCK=1
         notify-send -u normal 'SYSTEM NOTICE' 'Your computer RAM is running on single channel mode. System performance might be reduced'
 
-    elif [ $used_ram -lt 4 ] && [ $LOCK -eq 1 ]; then
+    # 3800 to prevent notif spam when ram usage fluctuates
+    elif [ $used_ram -lt 3800 ] && [ $LOCK -eq 1 ]; then
         LOCK=0
 
     fi

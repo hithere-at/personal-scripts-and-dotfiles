@@ -1,0 +1,31 @@
+#!/bin/sh
+
+workspaces() {
+
+# Unoccupied
+un="u0"
+
+# check if Occupied
+o1="o$(bspc query -D -d .occupied --names | grep '1')"
+o2="o$(bspc query -D -d .occupied --names | grep '2')"
+o3="o$(bspc query -D -d .occupied --names | grep '3')"
+o4="o$(bspc query -D -d .occupied --names | grep '4')"
+o5="o$(bspc query -D -d .occupied --names | grep '5')"
+o6="o$(bspc query -D -d .occupied --names | grep '6')"
+
+# check if Focused
+f1="f$(bspc query -D -d focused --names | grep '1')"
+f2="f$(bspc query -D -d focused --names | grep '2')"
+f3="f$(bspc query -D -d focused --names | grep '3')"
+f4="f$(bspc query -D -d focused --names | grep '4')"
+f5="f$(bspc query -D -d focused --names | grep '5')"
+f6="f$(bspc query -D -d focused --names | grep '6')"
+
+echo 	"(box	:class \"workspace_widget\" :orientation \"v\"	 :space-evenly true :spacing \"0\" :height 300 (button :onclick \"bspc desktop -f 1\"	:class	\"ws-$un$o1$f1\"	\"1\") (button :onclick \"bspc desktop -f 2\"	:class \"ws-$un$o2$f2\"	 \"2\") (button :onclick \"bspc desktop -f 3\"	:class \"ws-$un$o3$f3\" \"3\") (button :onclick \"bspc desktop -f 4\"	:class \"ws-$un$o4$f4\"	\"4\") (button :onclick \"bspc desktop -f 5\"	:class \"ws-$un$o5$f5\" \"5\" )  (button :onclick \"bspc desktop -f 6\"	:class \"ws-$un$o6$f6\" \"6\"))"
+
+}
+
+workspaces
+bspc subscribe desktop node_transfer | while read -r _ ; do
+workspaces
+done

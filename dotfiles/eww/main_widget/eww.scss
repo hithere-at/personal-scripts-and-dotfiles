@@ -1,0 +1,103 @@
+* {
+    all: unset;
+    font-family: "JetBrainsMono NFM", "Noto Sans CJK JP";
+
+}
+
+.powermenu_widget {
+    background: rgba(58, 56, 62, 0.8);
+
+}
+
+.shutdown_box, .reboot_box, .logout_box {
+    font-size: 80px;
+    border-width: 2px;
+    border-radius: 6px;
+    border-style: solid;
+    border-color: #aad291;
+
+}
+
+.close_box {
+    font-size: 20px;
+    margin-right: 16px;
+    margin-bottom: 16px;
+    border-width: 2px;
+    border-radius: 6px;
+    border-style: solid;
+    border-color: #aad291;
+
+}
+
+.shutdown_label, .reboot_label, .logout_label {
+    font-size: 18px;
+
+}
+
+.shutdown_button, .reboot_button, .logout_button, .close_button {
+   transition: 175ms ease-in-out background;
+
+    &:hover {
+        transition: 175ms ease-in-out background;
+        background: #aad291;
+        color: #183807;
+
+    }
+
+}
+
+.backlight_widget, .volume_widget, .battery_widget, .health_widget {
+    color: #f4eff7;
+    background-color: rgba(58, 56, 62, 0.6);
+    padding: 6px;
+    border-radius: 6px;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #aad291;
+
+}
+
+.backlight_chart, .volume_chart, .battery_chart {
+    background: #848583;
+    color: #f4eff7;
+
+}
+
+.backlight_icon, .volume_icon, .battery_icon {
+    font-size: 24px;
+
+}
+
+.backlight_stat_container, .volume_stat_container, .battery_stat_container {
+    color: #f4eff7;
+    padding-left: 12px;
+
+}
+
+scale trough {
+    min-width: 10px;
+    min-height: 80px;
+    border-width: 1px;
+    border-radius: 6px;
+    border-style: solid;
+    border-color: #aad291;
+
+}
+
+scale trough highlight {
+    background: #aad291;
+    border-radius: 5px;
+
+}
+
+.cpu_icon, .mem_icon, .temp_icon {
+    font-size: 20px;
+    margin-bottom: 6px;
+
+}
+
+.cpu_text, .mem_text, .temp_text {
+    font-size: 14px;
+    margin-top: 6px;
+
+}

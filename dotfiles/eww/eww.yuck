@@ -1,104 +1,184 @@
-(defpoll battery_capacity :interval "1s" "./poller/battery -c")
-(defpoll battery_status :interval "1s" "./poller/battery -s")
-(defpoll battery_cycle :interval "1s" "./poller/battery -y")
+(defpoll time_hour :interval "1s" "date +'%I'")
+(defpoll time_minute :interval "1s" "date +'%M'")
+(defpoll time_date :interval "1s" "date +'%d/%m'")
 
-(defpoll music_artist :interval "1s" "./poller/music -a")
-(defpoll music_title :interval "1s" "./poller/music -t")
-(defpoll music_art :interval "1s" "./poller/music -u")
+(defpoll bat_icon :interval "1s" "./poller/battery icon")
 
-(defwindow bat-window :monitor 0
-                      :geometry (geometry :x "280px"
-                                          :y "37px"
-                                          :width "235px"
-                                          :height "70px"
-                                          :anchor "top center")
-                      :stacking "fg"
-                      :wm-ignore true
-                      :windowtype "utility"
+(defpoll vol_icon :interval "1s" "./poller/volume icon")
+(defpoll vol_percent :interval "1s" "./poller/volume percent")
 
-(bat-widget))
+(defpoll bright_icon :interval "1s" "./poller/backlight icon")
+(defpoll bright_percent :interval "1s" "./poller/backlight percent")
 
-(defwindow music-window :monitor 0
-                        :geometry (geometry :x "200px"
-                                            :y "37px"
-                                            :width "400px"
-                                            :height "200px"
-                                            :anchor "top left")
+(defwindow bar-window :monitor 0
+                      :geometry (geometry :x "8px"
+                                          :width "65px"
+                                          :height "752px"
+                                          :anchor "left center")
+                      :reserve (struts :distance "82px"
+                                       :side "left")
+                      :wm-ignore false
+                      :windowtype "dock"
 
-                        :stacking "fg"
-                        :wm-ignore true
-                        :windowtype "utility"
-(music-widget))
+(bar-widget))
 
-(defwidget bat-widget []
+(defwidget bar-widget []
 
-    (box :orientation "h"
-         :class "bat_widget"
-         :spacing 0
+    (box :class "bar_widget"
+         :orientation "v"
+         :space-evenly true
+         :vexpand false
+         :hexpand false
+
+         (top-widget)
+         (bottom-widget)
+
+    )
+
+)
+
+(defwidget top-widget []
+
+    (box :orientation "v"
          :space-evenly false
-
-        (box :orientation "h"
-             :spacing 0
-             :width 50
-             :class "bat_cont"
-
-             (circular-progress :thickness 7
-                                :class "bat_chart"
-                                :value battery_capacity
-                                :clockwise true
-                                :start-at 270
-
-             (label :text "󰁹"))
-
-        )
-
-        (box :orientation "v"
-             :space-evenly false
-             :valign "center"
-             :class "bat_status_cont"
-
-             (label :halign "start" :text "Status: ${battery_status}")
-             (label :halign "start" :text "Charge cycle: ${battery_cycle}")
-
-        )
+         :valign "start"
+         
+         (launcher-widget)
+         (workspace-widget)
 
     )
 
 )
 
-(defwidget music-widget []
+(defwidget bottom-widget []
 
-    (box :orientation: "h"
-         :class "music_widget"
+    (box :space-evenly false
          :spacing 0
+         :orientation "v"
+         :valign "end"
 
-        (box :orientation "h"
-             :spacing 0
-             :width 150
-
-            (image :image-width 150 :path "${music_art}")
-
-        )
-
-        (box :orientation "v"
-             :space-evenly false
-             :valign "center"
-             :class "music_info"
-
-            (label :class "music_title_label" :text "${music_title}")
-            (label :class "music_artist_label" :text "${music_artist}")
-
-            (box :orientation "h"
-                 :class "music_controls"
-
-                (button :class "music_prev_button" :onclick "playerctl previous" "󰒮")
-                (button :class "music_playpause_button" :onclick "playerctl play-pause" "󰐎")
-                (button :class "music_next_button" :onclick "playerctl next" "󰒭")
-
-            )
-
-        )
+         (health-widget)
+         (system-widget)
+         (clock-widget)
+         (power-widget)
 
     )
 
 )
+
+(defwidget launcher-widget []
+
+    (box :class "launcher_widget"
+         :spacing 0
+         :space-evenly true
+         :width 54
+         :height 54
+
+         (button :onclick "rofi -show drun" 
+                 :class "launcher_button"
+                 :timeout "1m"
+                 :tooltip "Launch an app"
+
+                 "󰣇"
+
+         )
+
+    )
+
+)
+
+(deflisten workspace "./poller/workspace")
+(defwidget workspace-widget []
+    (literal :content workspace)
+)
+
+(defwidget health-widget []
+
+    (box :class "health_widget"
+         :spacing 0
+         :height 54
+
+         (button :class "health_button"
+                 :onclick "./handler/health_stat"
+                 :timeout "1m"
+                 :tooltip "Show system health"
+                 "󰍛"
+
+         )
+
+    )
+
+)
+
+(defwidget power-widget []
+
+    (box :class "power_widget"
+         :spacing 0
+         :space-evenly true
+         :width 54
+         :height 54
+
+         (button :onclick "eww -c ./main_widget open powermenu-window"
+                 :class "power_button"
+                 :tooltip "This is a power button"
+                 :timeout "1m"
+                 "󰐥"
+
+         )
+
+    )
+
+)
+
+(defwidget clock-widget []
+
+    (box :class "clock_widget"
+         :orientation "v"
+         :space-evenly true
+         :spacing -25
+         :height 100
+
+         (label :text "${time_hour}")
+         (label :text "${time_minute}")
+         (label :text "${time_date}" :class "date_label")
+
+    )
+
+)
+
+(defwidget system-widget []
+
+    (box :class "system_widget"
+         :orientation "v"
+         :space-evenly true
+         :spacing 0
+         :height 150
+
+         (button :class "battery_button"
+                 :onclick "./handler/battery_stat"
+                 :timeout "5s"
+                 :tooltip "Battery: ${EWW_BATTERY["BAT0"].capacity}%"
+                 "${bat_icon}"
+
+         )
+
+         (button :class "volume_button"
+                 :onclick "./handler/volume_stat"
+                 :timeout "5s"
+                 :tooltip "Volume: ${vol_percent}%"
+                 "${vol_icon}"
+
+         )
+
+         (button :class "backlight_button"
+                 :onclick "./handler/backlight_stat"
+                 :timeout "5s"
+                 :tooltip "Brightness: ${bright_percent}%"
+                 "${bright_icon}"
+
+         )
+
+    )
+
+) 
+

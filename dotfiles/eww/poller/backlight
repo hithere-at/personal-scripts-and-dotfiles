@@ -1,0 +1,29 @@
+#!/bin/sh
+
+get_icon() {
+
+    if [ $1 -le 33 ]; then
+        echo "󰃞"
+
+    elif [ $1 -le 66 ]; then
+        echo "󰃟"
+
+    else
+        echo "󰃠"
+
+    fi
+
+}
+
+BACKLIGHT_RAW=$(brightnessctl g)
+BACKLIGHT_MAX=$(brightnessctl m)
+
+BACKLIGHT_PERCENT=$(echo "($BACKLIGHT_RAW / $BACKLIGHT_MAX) * 100" | bc -l)
+BACKLIGHT_PERCENT=$(printf '%.0f\n' "$BACKLIGHT_PERCENT")
+
+case "$1" in
+
+    "icon") get_icon $BACKLIGHT_PERCENT;;
+    "percent") echo $BACKLIGHT_PERCENT;;
+
+esac

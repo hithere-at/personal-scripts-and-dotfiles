@@ -1,0 +1,17 @@
+#!/bin/sh
+# This code has race conditions but it works good enough
+
+if [ -f /tmp/volume_stat_lock ]; then
+    eww -c $HOME/.config/eww/main_widget close volume-window
+    rm /tmp/volume_stat_lock
+    exit 0
+
+fi
+
+eww -c $HOME/.config/eww/main_widget open volume-window
+touch /tmp/volume_stat_lock
+sleep 2
+rm /tmp/volume_stat_lock
+eww -c $HOME/.config/eww/main_widget close volume-window
+
+

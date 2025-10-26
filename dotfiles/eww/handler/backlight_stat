@@ -1,0 +1,17 @@
+#!/bin/sh
+# This code has race conditions but it works good enough
+
+if [ -f /tmp/backlight_stat_lock ]; then
+    eww -c $HOME/.config/eww/main_widget close backlight-window
+    rm /tmp/backlight_stat_lock
+    exit 0
+
+fi
+
+eww -c $HOME/.config/eww/main_widget open backlight-window
+touch /tmp/backlight_stat_lock
+sleep 2
+rm /tmp/backlight_stat_lock
+eww -c $HOME/.config/eww/main_widget close backlight-window
+
+

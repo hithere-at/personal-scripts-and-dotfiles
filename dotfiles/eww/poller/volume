@@ -1,0 +1,25 @@
+#!/bin/sh
+
+get_icon() {
+
+    if [ $1 -le 33 ]; then
+        echo "󰕿"
+
+    elif [ $1 -le 66 ]; then
+        echo "󰖀"
+
+    else
+        echo "󰕾"
+
+    fi
+
+}
+
+VOLUME="$(pamixer --get-volume)"
+
+case "$1" in
+
+    "icon") get_icon $VOLUME;;
+    "percent" ) echo $VOLUME;;
+
+esac

@@ -61,6 +61,18 @@ XF86AudioLowerVolume
 XF86AudioRaiseVolume
 	pamixer -i 5
 
+XF86AudioPlay
+    playerctl play-pause
+
+XF86AudioPrev
+    playerctl previous
+
+XF86AudioNext
+    playerctl next
+
+XF86AudioStop
+    playerctl stop
+
 XF86TouchpadToggle
     xinput set-prop "$(xinput | grep Touchpad | grep -o 'id=[^[]*' | sed 's/[^0-9]*//g')" "libinput Tapping Enabled" 1
 

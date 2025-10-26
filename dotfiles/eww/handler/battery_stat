@@ -2,16 +2,16 @@
 # This code has race conditions but it works good enough
 
 if [ -f /tmp/battery_stat_lock ]; then
-    eww close battery-window
+    eww -c $HOME/.config/eww/main_widget close battery-window
     rm /tmp/battery_stat_lock
     exit 0
 
 fi
 
-eww open bat-window
+eww -c $HOME/.config/eww/main_widget open battery-window
 touch /tmp/battery_stat_lock
 sleep 2
 rm /tmp/battery_stat_lock
-eww close bat-window
+eww -c $HOME/.config/eww/main_widget close battery-window
 
 
