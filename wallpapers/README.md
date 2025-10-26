@@ -30,3 +30,8 @@
   - by Rotarran at [pixiv](https://www.pixiv.net/en/users/51648995)
   - [Source](https://www.pixiv.net/en/artworks/128729408)
   - ![wp6](marian.jpg)
+
+- *shiho.jpg*
+  - by SEGA at [Instagram](https://www.instagram.com/colorful_stage_en)
+  - [Source](https://www.instagram.com/p/DKZ_EU3SMrf)
+  - ![wp7](shiho.jpg)

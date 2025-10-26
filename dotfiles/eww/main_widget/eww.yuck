@@ -1,10 +1,10 @@
-(defpoll backlight_percent :interval "1s" "../poller/backlight percent")
-(defpoll backlight_icon :interval "1s" "../poller/backlight icon")
+(deflisten backlight_percent "../poller/backlight percent")
+(deflisten backlight_icon "../poller/backlight icon")
 
-(defpoll volume_percent :interval "1s" "../poller/volume percent")
-(defpoll volume_icon :interval "1s" "../poller/volume icon")
+(deflisten volume_percent "../poller/volume percent")
+(deflisten volume_icon "../poller/volume icon")
 
-(defpoll battery_icon :interval "1s" "../poller/battery icon")
+(defpoll battery_icon :interval "10s" "../poller/battery icon")
 
 (defpoll cpu_temp :interval "1s" "../poller/cputemp")
 

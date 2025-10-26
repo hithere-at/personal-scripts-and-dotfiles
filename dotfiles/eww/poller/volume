@@ -1,11 +1,23 @@
 #!/bin/sh
 
+get_values() {
+
+    case "$1" in
+        "percent") [ -z "$2" ] && echo "muted" || echo "$2";;
+        "icon") [ "$2" = "muted" ] && echo "󰝟" || echo "$(get_icon $2)";;
+
+    esac
+
+}
+
 get_icon() {
 
-    if [ $1 -le 33 ]; then
+    volume_percent=$(echo "$1" | sed 's/%//')
+
+    if [ $volume_percent -le 33 ]; then
         echo "󰕿"
 
-    elif [ $1 -le 66 ]; then
+    elif [ $volume_percent -le 66 ]; then
         echo "󰖀"
 
     else
@@ -15,11 +27,21 @@ get_icon() {
 
 }
 
-VOLUME="$(pamixer --get-volume)"
+volume=$(pamixer --get-volume-human)
+volume=$(echo "$volume" | sed 's/%//')
+val=$(get_values "$1" $volume)
+echo "$val"
 
-case "$1" in
+pactl subscribe | while read -r line; do
 
-    "icon") get_icon $VOLUME;;
-    "percent" ) echo $VOLUME;;
+    state=$(echo "$line" | grep -o 'sink')
 
-esac
+    if [ "$state" = "sink" ]; then
+        volume=$(pamixer --get-volume-human)
+        volume=$(echo "$volume" | sed 's/%//')
+        val=$(get_values "$1" $volume)
+        echo "$val"
+
+    fi
+
+done

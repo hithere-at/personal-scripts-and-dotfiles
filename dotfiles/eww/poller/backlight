@@ -1,5 +1,15 @@
 #!/bin/sh
 
+get_values() {
+
+    case "$1" in
+        "percent") echo "$2";;
+        "icon") echo "$(get_icon $2)";;
+
+    esac
+
+}
+
 get_icon() {
 
     if [ $1 -le 33 ]; then
@@ -15,15 +25,25 @@ get_icon() {
 
 }
 
+BACKLIGHT_CARD="intel_backlight"
 BACKLIGHT_RAW=$(brightnessctl g)
 BACKLIGHT_MAX=$(brightnessctl m)
+BACKLIGHT_FILE="/sys/class/backlight/$BACKLIGHT_CARD/brightness"
 
 BACKLIGHT_PERCENT=$(echo "($BACKLIGHT_RAW / $BACKLIGHT_MAX) * 100" | bc -l)
 BACKLIGHT_PERCENT=$(printf '%.0f\n' "$BACKLIGHT_PERCENT")
 
-case "$1" in
+val=$(get_values "$1" $BACKLIGHT_PERCENT)
+echo "$val"
 
-    "icon") get_icon $BACKLIGHT_PERCENT;;
-    "percent") echo $BACKLIGHT_PERCENT;;
+inotifywait -m -e modify $BACKLIGHT_FILE 2> /dev/null | while read -r line; do
 
-esac
+    BACKLIGHT_RAW=$(brightnessctl g)
+    BACKLIGHT_MAX=$(brightnessctl m)
+    BACKLIGHT_PERCENT=$(echo "($BACKLIGHT_RAW / $BACKLIGHT_MAX) * 100" | bc -l)
+    BACKLIGHT_PERCENT=$(printf '%.0f\n' "$BACKLIGHT_PERCENT")
+
+    val=$(get_values "$1" $BACKLIGHT_PERCENT)
+    echo "$val"
+
+done

@@ -60,7 +60,7 @@ tooltip {
 
 }
 
-.backlight_button, .volume_button, .battery_button, .launcher_button, .health_button {
+.backlight_button, .volume_button, .battery_button, .launcher_button, .health_button, .clock_button, .wifi_button {
 
     transition: 175ms ease-in-out background, color;
 
@@ -105,10 +105,11 @@ tooltip {
 
 .ws-u0of {
     color: #848583;
-    transition: 175ms ease-in-out background;
+    transition: 175ms ease-in-out background, color;
 
     &:hover {
-        transition: 175ms ease-in-out background;
+        transition: 175ms ease-in-out background, color;
+        color: #f4eff7;
         background: rgba(128, 128, 128, 0.4);
 
     }
@@ -118,10 +119,10 @@ tooltip {
 .ws-u0o1f, .ws-u0o2f, .ws-u0o3f, .ws-u0o4f, .ws-u0o5f, .ws-u0o6f {
 
     color: #f4eff7;
-    transition: 175ms ease-in-out background;
+    transition: 175ms ease-in-out background, color;
 
     &:hover {
-        transition: 175ms ease-in-out background;
+        transition: 175ms ease-in-out background, color;
         background: rgba(128, 128, 128, 0.4);
 
     }

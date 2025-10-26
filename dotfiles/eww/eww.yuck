@@ -2,13 +2,16 @@
 (defpoll time_minute :interval "1s" "date +'%M'")
 (defpoll time_date :interval "1s" "date +'%d/%m'")
 
-(defpoll bat_icon :interval "1s" "./poller/battery icon")
+(defpoll bat_icon :interval "10s" "./poller/battery icon")
 
-(defpoll vol_icon :interval "1s" "./poller/volume icon")
-(defpoll vol_percent :interval "1s" "./poller/volume percent")
+(deflisten vol_icon "./poller/volume icon")
+(deflisten vol_percent "./poller/volume percent")
 
-(defpoll bright_icon :interval "1s" "./poller/backlight icon")
-(defpoll bright_percent :interval "1s" "./poller/backlight percent")
+(deflisten bright_icon "./poller/backlight icon")
+(deflisten bright_percent "./poller/backlight percent")
+
+(deflisten wifi_icon :initial "" "./poller/wifi icon")
+(deflisten wifi_percent :initial "Loading..." "./poller/wifi percent")
 
 (defwindow bar-window :monitor 0
                       :geometry (geometry :x "8px"
@@ -26,11 +29,12 @@
 
     (box :class "bar_widget"
          :orientation "v"
-         :space-evenly true
+         :space-evenly false
          :vexpand false
          :hexpand false
 
          (top-widget)
+         (center-widget)
          (bottom-widget)
 
     )
@@ -50,6 +54,18 @@
 
 )
 
+(defwidget center-widget []
+
+    (box :orientation "v"
+         :space-evenly false
+         :valign "start"
+         
+         (health-widget)
+
+    )
+
+)
+
 (defwidget bottom-widget []
 
     (box :space-evenly false
@@ -57,7 +73,6 @@
          :orientation "v"
          :valign "end"
 
-         (health-widget)
          (system-widget)
          (clock-widget)
          (power-widget)
@@ -133,14 +148,22 @@
 (defwidget clock-widget []
 
     (box :class "clock_widget"
-         :orientation "v"
-         :space-evenly true
-         :spacing -25
          :height 100
+         :space-evenly true
 
-         (label :text "${time_hour}")
-         (label :text "${time_minute}")
-         (label :text "${time_date}" :class "date_label")
+         (button :class "clock_button"
+
+                 (box :orientation "v"
+                      :space-evenly true
+                      :spacing -25
+
+                      (label :text "${time_hour}")
+                      (label :text "${time_minute}")
+                      (label :text "${time_date}" :class "date_label")
+
+                 )
+
+         )
 
     )
 
@@ -152,7 +175,14 @@
          :orientation "v"
          :space-evenly true
          :spacing 0
-         :height 150
+         :height 185
+
+         (button :class "wifi_button"
+                 :timeout "5s"
+                 :tooltip "Signal: ${wifi_percent}%"
+                 "${wifi_icon}"
+
+         )
 
          (button :class "battery_button"
                  :onclick "./handler/battery_stat"

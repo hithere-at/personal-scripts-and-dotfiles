@@ -39,7 +39,7 @@ while true; do
 
         fi
 
-    elif [ "$status" = "Charging" ]
+    elif [ "$status" = "Charging" ]; then
         CHARGE_LOCK=1
 
     fi
