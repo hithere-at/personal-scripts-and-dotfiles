@@ -56,10 +56,10 @@ XF86AudioMute
     pamixer -t
 
 XF86AudioLowerVolume
-	pamixer -d 5
+    pamixer -d 5
 
 XF86AudioRaiseVolume
-	pamixer -i 5
+    pamixer -i 5
 
 XF86AudioPlay
     playerctl play-pause

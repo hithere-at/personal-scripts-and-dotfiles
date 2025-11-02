@@ -1,0 +1,51 @@
+* {
+    all: unset;
+    font-family: "JetBrainsMono NF";
+
+}
+
+.volume_notif_widget, .backlight_notif_widget {
+    background: rgba(58, 56, 62, 0.6);
+    border-radius: 3px;
+    border-width: 2px;
+    border-style: solid;
+    border-color: #aad291;
+    color: #f4eff7;
+
+}
+
+.volume_icon, .backlight_icon {
+    margin-left: 6px;
+    margin-right: 6px;
+    font-size: 20px;
+
+}
+
+.volume_text, .backlight_text {
+    margin-left: 6px;
+    margin-right: 6px;
+    font-size: 18px;
+
+}
+
+.volume_bar, .backlight_bar {
+    margin-left: 6px;
+    margin-right: 6px;
+
+}
+
+scale trough {
+    min-width: 200px;
+    min-height: 10px;
+    border-width: 1px;
+    border-radius: 6px;
+    border-style: solid;
+    border-color: #aad291;
+
+}
+
+scale trough highlight {
+    background: #aad291;
+    border-radius: 5px;
+
+}

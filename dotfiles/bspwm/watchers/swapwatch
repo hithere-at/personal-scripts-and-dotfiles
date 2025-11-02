@@ -6,11 +6,11 @@ LOCK=0
 while true; do
     used_swap=$(free -m | grep Swap | awk '{print $3}' | sed 's/[A-Za-z]*//g')
 
-    if [ $used_swap -ge 128 ] && [ $LOCK -eq 0 ]; then
+    if [ $used_swap -ge 512 ] && [ $LOCK -eq 0 ]; then
         LOCK=1
         notify-send -u normal 'SYSTEM NOTICE' 'Your system is using the swap memory. System performance might be severely reduced'
 
-    elif [ $used_swap -lt 128 ] && [ $LOCK -eq 1 ]; then
+    elif [ $used_swap -lt 512 ] && [ $LOCK -eq 1 ]; then
         LOCK=0
 
     fi

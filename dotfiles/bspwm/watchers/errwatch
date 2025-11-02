@@ -1,22 +1,9 @@
 #!/bin/sh
 
 # kernel error message baseline. some modules doesnt actually throw a real error (e.g when nvidia module is loading) and the order of some "error" messages are different
-BASELINE1="f1287d11bc40c083ee17616d884d7c63f50b1363e92f9607d2df37a18784005f"
-BASELINE2="1bd81aaec66cc7475518b1aed3b2223e6cdde4ba03dfd9cb07c80b41950ecc4d"
 
-while $true; do
+journalctl --no-pager -k -f -p 0..3 -o cat --output-fields="MESSAGE" | while read -r _; do
 
-    CURRENT=$(journalctl --no-pager -k -p 0..3 -o cat --output-fields="MESSAGE" | sha256sum | tr -d " -")
-    echo $CURRENT
-
-    if ! [ "$CURRENT" = "$BASELINE1" ] && ! [ "$CURRENT" = "$BASELINE2" ] ; then
-        # very dirty hack but it gets the job done 
-        BASELINE1="$CURRENT"
-        BASELINE2="$CURRENT"
-        notify-send -u critical "SYSTEM MALFUNCTION DETECTED"
-
-    fi
-
-    sleep 5
+   notify-send -u critical "SYSTEM MALFUNCTION DETECTED"
 
 done

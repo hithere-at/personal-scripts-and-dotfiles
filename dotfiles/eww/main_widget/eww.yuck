@@ -162,6 +162,8 @@
 
               (button :class "close_button"
                       :onclick "eww -c . close powermenu-window"
+                      :timeout "2s"
+                      :tooltip "Close power menu"
                       ""
 
               )

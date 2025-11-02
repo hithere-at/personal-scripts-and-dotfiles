@@ -1,0 +1,91 @@
+(deflisten vol_percent "../poller/volume percent")
+(deflisten vol_icon "../poller/volume icon")
+
+(deflisten backlight_percent "../poller/backlight percent")
+(deflisten backlight_icon "../poller/backlight icon")
+
+(defwindow volume-notif-window :monitor 0
+                               :geometry (geometry :x "20px"
+                                                   :y "-80px"
+                                                   :width "200px"
+                                                   :height "40px"
+                                                   :anchor "bottom center")
+                               :stacking "fg"
+                               :windowtype "desktop"
+                               :wm-ignore true
+
+(volume-notif-widget))
+
+(defwindow backlight-notif-window :monitor 0
+                               :geometry (geometry :x "20px"
+                                                   :y "-80px"
+                                                   :width "200px"
+                                                   :height "40px"
+                                                   :anchor "bottom center")
+                               :stacking "fg"
+                               :windowtype "desktop"
+                               :wm-ignore true
+
+(backlight-notif-widget))
+
+(defwidget volume-notif-widget []
+
+    (box :class "volume_notif_widget"
+         :width 200
+         :height 40
+         :spacing 0
+         :space-evenly false
+         :orientation "h"
+
+         (label :class "volume_icon"
+                :valign "center"
+                :halign "center"
+                :text "${vol_icon}")
+
+         (scale :class "volume_bar"
+                :halign "center"
+                :valign "center"
+                :min 0
+                :max 101
+                :value vol_percent
+                :orientation "h")
+
+         (label :class "volume_text"
+                :halign "center"
+                :valign "center"
+                :text "${vol_percent}%")
+
+    )
+
+)
+
+(defwidget backlight-notif-widget []
+
+    (box :class "backlight_notif_widget"
+         :width 200
+         :height 40
+         :spacing 0
+         :space-evenly false
+         :orientation "h"
+
+         (label :class "backlight_icon"
+                :valign "center"
+                :halign "center"
+                :text "${backlight_icon}")
+
+         (scale :class "backlight_bar"
+                :halign "center"
+                :valign "center"
+                :min 0
+                :max 101
+                :value backlight_percent
+                :orientation "h")
+
+         (label :class "backlight_text"
+                :halign "center"
+                :valign "center"
+                :text "${backlight_percent}%")
+
+    )
+
+)

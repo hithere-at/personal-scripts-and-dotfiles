@@ -1,7 +1,7 @@
 #!/bin/sh
 
 pgrep -x sxhkd > /dev/null || sxhkd &
-pgrep -x redshift > /dev/null || redshift -l 1:1 -t 5300:5300 -r -g 0.80 &
+pgrep -x redshift > /dev/null || redshift -l 1:1 -t 5000:5000 -r -g 0.80 &
 
 bspc monitor -d 1 2 3 4 5 6
 
@@ -17,25 +17,33 @@ bspc rule -a mpv state=floating
 bspc config focused_border_color "#AAD291"
 bspc config normal_border_color "#312F35"
 
+# compositor
+picom -b
+
+# eww daemon and bars
 eww daemon &
 eww -c ~/.config/eww/main_widget daemon &
+eww -c ~/.config/eww/notif daemon &
 eww open bar-window &
 
 export QT_QPA_PLATFORMTHEME=qt6ct
 
+# Notification tasks
 ~/.config/bspwm/watchers/errwatch &
 ~/.config/bspwm/watchers/ramwatch &
 ~/.config/bspwm/watchers/batwatch &
 ~/.config/bspwm/watchers/swapwatch &
 ~/.config/bspwm/watchers/usbwatch &
-~/.config/bspwm/watchers/musicwatch &
+~/.config/bspwm/watchers/volumewatch &
+~/.config/bspwm/watchers/backlightwatch &
 
+# Enable touchpad tapping
 xinput set-prop "$(xinput list | grep Touchpad | grep -o 'id=[^[]*' | sed 's/[^0-9]*//g')" "libinput Tapping Enabled" 1 &
-vibrant-cli eDP-1 1.2 &
+vibrant-cli eDP-1 1.3 &
 
+# eye candies and some important stuff
 xsetroot -cursor_name left_ptr &
 feh --bg-fill ~/Pictures/Wallpapers/shiho.jpg
 /usr/lib/polkit-kde-authentication-agent-1 &
-picom -b
 dunst &
 /usr/bin/kdeconnectd &

@@ -1,0 +1,30 @@
+#!/bin/sh
+
+BACKLIGHT_CARD="intel_backlight"
+BACKLIGHT_FILE=/sys/class/backlight/$BACKLIGHT_CARD/brightness
+
+LOCK_FILE=/tmp/backlight_notif_lock
+
+remove_window() {
+    sleep 2
+    eww -c ~/.config/eww/notif close backlight-notif-window
+    rm $LOCK_FILE
+
+}
+
+inotifywait -m -e modify $BACKLIGHT_FILE | while read -r _; do
+
+    if ! [ -f $LOCK_FILE ]; then
+        eww -c ~/.config/eww/notif open backlight-notif-window
+        remove_window &
+        echo $! > $LOCK_FILE
+
+    elif [ -f $LOCK_FILE ]; then
+        LOCK_PID=$(cat $LOCK_FILE | grep -o '[0-9]*')
+        kill -9 $LOCK_PID
+        remove_window &
+        echo $! > $LOCK_FILE
+
+    fi
+
+done

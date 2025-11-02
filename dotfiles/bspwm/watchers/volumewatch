@@ -1,0 +1,39 @@
+#!/bin/sh
+
+LOCK_FILE=/tmp/volume_notif_lock
+
+remove_window() {
+    sleep 2
+    eww -c ~/.config/eww/notif close volume-notif-window
+    rm $LOCK_FILE
+
+}
+
+volume_before=$(pamixer --get-volume-human | sed 's/%//')
+
+pactl subscribe | while read -r line; do
+
+    state=$(echo "$line" | grep -o 'sink ')
+
+    if [ "$state" = "sink " ]; then
+
+        volume_current=$(pamixer --get-volume-human | sed 's/%//')
+
+        if ! [ -f $LOCK_FILE ] && ! [ "$volume_before" = "$volume_current" ]; then
+            volume_before=$volume_current
+            eww -c ~/.config/eww/notif open volume-notif-window
+            remove_window &
+            echo $! > $LOCK_FILE
+
+        elif [ -f $LOCK_FILE ] && ! [ "$volume_before" = "$volume_current" ]; then
+            volume_before=$volume_current
+            LOCK_PID=$(cat $LOCK_FILE | grep -o '[0-9]*')
+            kill -9 $LOCK_PID
+            remove_window &
+            echo $! > $LOCK_FILE
+
+        fi
+
+    fi
+
+done

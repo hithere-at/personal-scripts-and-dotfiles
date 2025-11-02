@@ -3,7 +3,7 @@
 get_values() {
 
     case "$1" in
-        "percent") [ -z "$2" ] && echo "muted" || echo "$2";;
+        "percent") [ "$2" = "muted" ] && echo "0" || echo "$2";;
         "icon") [ "$2" = "muted" ] && echo "󰝟" || echo "$(get_icon $2)";;
 
     esac
@@ -28,8 +28,8 @@ get_icon() {
 }
 
 volume=$(pamixer --get-volume-human)
-volume=$(echo "$volume" | sed 's/%//')
 val=$(get_values "$1" $volume)
+val=$(echo "$val" | sed 's/%//')
 echo "$val"
 
 pactl subscribe | while read -r line; do
@@ -38,8 +38,8 @@ pactl subscribe | while read -r line; do
 
     if [ "$state" = "sink" ]; then
         volume=$(pamixer --get-volume-human)
-        volume=$(echo "$volume" | sed 's/%//')
         val=$(get_values "$1" $volume)
+        val=$(echo "$val" | sed 's/%//')
         echo "$val"
 
     fi
