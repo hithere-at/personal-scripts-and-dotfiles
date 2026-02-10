@@ -27,6 +27,7 @@ alias ls='eza --icons --color=auto'
 alias ll='ls -lh'
 alias cte='chmod 755'
 alias grep='grep --color=auto'
+alias soft-reboot='sudo systemctl start systemd-soft-reboot.service'
 
 preexec() {
 	printf "\n"
@@ -74,19 +75,19 @@ precmd() {
 
     # Time display
     if [ -z $TIME_START ]; then
-        TIME_MODULE="%F{#ccc4cb} init %f%"
+        TIME_MODULE="%F{#ab8a71} init %f%"
 
     elif [ -z $seconds ]; then
-        TIME_MODULE="%F{#ccc4cb} ${milisecs}ms %f"
+        TIME_MODULE="%F{#ab8a71} ${milisecs}ms %f"
 
     elif [ -z $minutes ]; then
-        TIME_MODULE="%F{#ccc4cb} ${seconds}s %f"
+        TIME_MODULE="%F{#ab8a71} ${seconds}s %f"
 
     elif [ -z $hours ]; then
-        TIME_MODULE="%F{#ccc4cb} ${minutes}m ${seconds}s %f"
+        TIME_MODULE="%F{#ab8a71} ${minutes}m ${seconds}s %f"
 
     else
-        TIME_MODULE="%F{#ccc4cb} ${hours}h ${minutes}m ${seconds}s %f"
+        TIME_MODULE="%F{#ab8a71} ${hours}h ${minutes}m ${seconds}s %f"
 
     fi
 
@@ -100,7 +101,7 @@ precmd() {
 
     fi
 
-    PROMPT=$'\n%F{#e2e2e5}\uf015 %n@%m%f%F{#787474} // %f%F{#bfc7d4}\uf07b %(3~|.../%2~|%~)%f$(echo -ne "$VENV_MODULE")\n$(echo -ne "$TIME_MODULE") \u00bb '
+    PROMPT=$'\n%F{#c27c94}\uf015 %n@%m%f%F{#787474} // %f\uf07b %(3~|.../%2~|%~)$(echo -ne "$VENV_MODULE")\n$(echo -ne "$TIME_MODULE") \u00bb '
 
 }
 
